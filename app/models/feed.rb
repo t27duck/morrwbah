@@ -13,10 +13,14 @@ class Feed < ActiveRecord::Base
     end
   end
 
-  def set_info_and_save!
+  def fetch!
+    create_new_entries!
+    self.last_checked = Time.now
     set_info!
     save!
   end
+
+  private ######################################################################
 
   def create_new_entries!
     feed_object.entries.each do |e|
@@ -35,8 +39,6 @@ class Feed < ActiveRecord::Base
       end
     end
   end
-
-  private ######################################################################
 
   def feed_object
     @feed_object ||= Feedzirra::Feed.fetch_and_parse(feed_url)
