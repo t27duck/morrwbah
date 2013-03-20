@@ -5,7 +5,7 @@ class CreateFeeds < ActiveRecord::Migration
       t.string :title, :null => false
       t.string :url
       t.string :feed_url, :null => false
-      t.string :etag, :null => false
+      t.string :etag
       t.datetime :last_modified, :null => false
       t.boolean :sanitize, :null => false, :default => true
 

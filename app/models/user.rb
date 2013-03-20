@@ -6,16 +6,19 @@ class User < ActiveRecord::Base
   validates_presence_of :auth_token
   validates_uniqueness_of :auth_token
 
-  before_create :generate_token
+  before_validation :set_auth_token
 
   has_many :feeds
   has_many :entries
   
   private ######################################################################
 
-  def generate_token(column)
-    begin
-      self[:auth_token] = SecureRandom.urlsafe_base64
-    end while User.exists?(:auth_token => self[:auth_token])
+  # before_create
+  def set_auth_token
+    if auth_token.blank?
+      begin
+        self.auth_token = SecureRandom.urlsafe_base64
+      end while User.exists?(:auth_token => auth_token)
+    end
   end
 end

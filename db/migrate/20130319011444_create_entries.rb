@@ -5,7 +5,8 @@ class CreateEntries < ActiveRecord::Migration
       t.integer :user_id, :null => false
       t.string :title, :null => false
       t.string :url, :null => false
-      t.string :author, :null => false
+      t.text :entry_id, :null => false
+      t.string :author
       t.text :summary
       t.text :content
       t.datetime :published, :null => false
@@ -17,5 +18,6 @@ class CreateEntries < ActiveRecord::Migration
 
     add_index :entries, :feed_id
     add_index :entries, :user_id
+    add_index :entries, [:feed_id, :user_id, :entry_id]
   end
 end

@@ -1,33 +1,28 @@
 class FeedsController < ApplicationController
-  before_action :set_feed, only: [:show, :edit, :update, :destroy]
+  before_action :set_feed, only: [:show, :edit, :update, :destroy, :fetch]
+  before_action :require_user
 
-  # GET /feeds
-  # GET /feeds.json
   def index
-    @feeds = Feed.all
+    @feeds = current_user.feeds
   end
 
-  # GET /feeds/1
-  # GET /feeds/1.json
   def show
   end
 
-  # GET /feeds/new
   def new
-    @feed = Feed.new
+    @feed = current_user.feeds.new
   end
 
-  # GET /feeds/1/edit
   def edit
   end
 
-  # POST /feeds
-  # POST /feeds.json
   def create
-    @feed = Feed.new(feed_params)
+    @feed = current_user.feeds.new(feed_params)
+    @feed.set_info!
 
     respond_to do |format|
       if @feed.save
+        @feed.create_new_entries!
         format.html { redirect_to @feed, notice: 'Feed was successfully created.' }
         format.json { render action: 'show', status: :created, location: @feed }
       else
@@ -37,8 +32,6 @@ class FeedsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /feeds/1
-  # PATCH/PUT /feeds/1.json
   def update
     respond_to do |format|
       if @feed.update(feed_params)
@@ -51,8 +44,6 @@ class FeedsController < ApplicationController
     end
   end
 
-  # DELETE /feeds/1
-  # DELETE /feeds/1.json
   def destroy
     @feed.destroy
     respond_to do |format|
@@ -61,14 +52,19 @@ class FeedsController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_feed
-      @feed = Feed.find(params[:id])
-    end
+  def fetch
+    @feed.fetch!
+    redirect_to feed_url(@feed)
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def feed_params
-      params.require(:feed).permit(:user_id, :title, :url, :feed_url, :etag, :last_modified, :sanitize)
-    end
+  private ######################################################################
+
+  def set_feed
+    @feed = Feed.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def feed_params
+    params.require(:feed).permit(:title, :url, :feed_url, :sanitize)
+  end
 end

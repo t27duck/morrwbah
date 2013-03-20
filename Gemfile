@@ -40,3 +40,4 @@ gem 'capistrano', group: :development
 gem 'haml-rails'
 gem 'feedzirra'
 gem 'whenever'
+gem 'bcrypt-ruby'

@@ -1,7 +1,12 @@
 Morrwbah::Application.routes.draw do
-  resources :entries
 
-  resources :feeds
+  resources :feeds do
+    member do
+      get :fetch
+    end
+
+    resource :entries, :only => :show
+  end
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
