@@ -1,0 +1,37 @@
+#dashboard {
+  #feed-list {
+    float: left;
+    width: 220px;    
+    cursor: pointer;
+    font-family: arial, sans-serif;
+    font-size: 13px;
+    height: 21px;
+    line-height: 21px;
+    text-align: left;
+
+    .feed-title {
+      .selected {
+        color: red;
+      }
+      .unread {
+        font-weight: bold;
+      }
+    }
+  }
+
+  #entry-list {
+    margin-left: 250px;
+    overflow-y: scroll;
+    height: 100%;
+    min-height: 100%;
+
+    .entry {
+      padding: 7px;
+      margin-bottom: 10px;
+    }
+
+    .selected {
+      border-left-color: #4D90F0;
+    }
+  }
+}

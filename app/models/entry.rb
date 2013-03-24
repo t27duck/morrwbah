@@ -3,4 +3,10 @@ class Entry < ActiveRecord::Base
   belongs_to :feed
 
   validates_presence_of :feed, :user, :title, :url, :published, :entry_id
+
+  scope :unread, -> { where(:read => false) }
+
+  def body
+    content ? content : summary
+  end
 end

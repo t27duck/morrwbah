@@ -20,6 +20,10 @@ class Feed < ActiveRecord::Base
     save!
   end
 
+  def unread_count
+    @unread_count ||= entries.unread.count
+  end
+
   private ######################################################################
 
   def create_new_entries!

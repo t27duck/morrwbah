@@ -1,12 +1,20 @@
 class FeedsController < ApplicationController
-  before_action :set_feed, only: [:show, :edit, :update, :destroy, :fetch]
+  before_action :set_feed, only: [:edit, :update, :destroy, :fetch]
   before_action :require_user
 
   def index
     @feeds = current_user.feeds
+    render :layout => nil
   end
 
   def show
+    if params[:id].to_s == '0'
+      @entries = current_user.entries.order(:published => :desc).unread.page(params[:page]).per_page(5)
+    else
+      @feed = current_user.feeds.find(params[:id])
+      @entries = @feed.entries.order(:published => :desc).unread.page(params[:page]).per_page(5)
+    end
+    render :layout => nil
   end
 
   def new

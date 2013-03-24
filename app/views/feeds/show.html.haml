@@ -1,27 +1,5 @@
-%p#notice= notice
-
-%p
-  %b User:
-  = @feed.user_id
-%p
-  %b Title:
-  = @feed.title
-%p
-  %b Url:
-  = @feed.url
-%p
-  %b Feed url:
-  = @feed.feed_url
-%p
-  %b Etag:
-  = @feed.etag
-%p
-  %b Last modified:
-  = @feed.last_modified
-%p
-  %b Sanitize:
-  = @feed.sanitize
-
-= link_to 'Edit', edit_feed_path(@feed)
-\|
-= link_to 'Back', feeds_path
+-# %p#notice= notice
+-@entries.each do |entry|
+  .entry.container{:class => (entry.read ? 'read' : 'unread'), :data => {:id => entry.id}}
+    .title=entry.title
+    .body=entry.body.html_safe

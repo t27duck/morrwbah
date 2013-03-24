@@ -11,6 +11,10 @@ class User < ActiveRecord::Base
   has_many :feeds
   has_many :entries
   
+  def all_feeds_unread_count
+    @all_feeds_unread_count ||= feeds.map(&:unread_count).inject(:+).to_i
+  end
+
   private ######################################################################
 
   # before_create

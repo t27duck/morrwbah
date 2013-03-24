@@ -47,7 +47,7 @@ GEM
       loofah (>= 0.3.1)
       nokogiri (> 0.0.0)
       sax-machine (>= 0.0.12)
-    haml (4.0.0)
+    haml (4.0.1)
       tilt
     haml-rails (0.4)
       actionpack (>= 3.1, < 4.1)
@@ -64,7 +64,7 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.7.7)
     kgio (2.8.0)
-    libv8 (3.11.8.13)
+    libv8 (3.11.8.17)
     loofah (1.2.1)
       nokogiri (>= 1.4.4)
     mail (2.5.3)
@@ -73,7 +73,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.21)
     minitest (4.7.0)
-    multi_json (1.7.1)
+    multi_json (1.7.2)
     net-scp (1.1.0)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.1)
@@ -81,7 +81,7 @@ GEM
     net-ssh (2.6.6)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
-    nokogiri (1.5.7)
+    nokogiri (1.5.9)
     pg (0.14.1)
     polyglot (0.3.3)
     rack (1.5.2)
@@ -105,7 +105,7 @@ GEM
     rake (10.0.3)
     rdoc (3.12.2)
       json (~> 1.4)
-    ref (1.0.3)
+    ref (1.0.4)
     sass (3.2.7)
     sass-rails (4.0.0.beta1)
       railties (>= 4.0.0.beta, < 5.0)
@@ -144,6 +144,7 @@ GEM
     whenever (0.8.2)
       activesupport (>= 2.3.4)
       chronic (>= 0.6.3)
+    will_paginate (3.0.4)
 
 PLATFORMS
   ruby
@@ -162,3 +163,4 @@ DEPENDENCIES
   uglifier (>= 1.0.3)
   unicorn
   whenever
+  will_paginate

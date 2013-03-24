@@ -1,31 +1,13 @@
-%h1 Listing feeds
+-unread_count = current_user.all_feeds_unread_count
+.feed-title{:data => {:id => '0', :full_title => 'All Feeds'}}
+  %div{ :class => (unread_count > 0 ? 'unread' : nil) }
+    All Feeds
+    ="(#{unread_count})" if unread_count > 0
 
-%table
-  %tr
-    %th User
-    %th Title
-    %th Url
-    %th Feed url
-    %th Etag
-    %th Last modified
-    %th Sanitize
-    %th
-    %th
-    %th
+-@feeds.each do |feed|
+  -unread_count = feed.unread_count
+  .feed-title{:data => {:id => feed.id, :full_title => feed.title}}
+    %div{ :class => (unread_count > 0 ? 'unread' : nil) }
+      =truncate(feed.title, :length => 25)
+      %span.unread-count="(#{unread_count})" if unread_count > 0
 
-  - @feeds.each do |feed|
-    %tr
-      %td= feed.user_id
-      %td= feed.title
-      %td= feed.url
-      %td= feed.feed_url
-      %td= feed.etag
-      %td= feed.last_modified
-      %td= feed.sanitize
-      %td= link_to 'Show', feed
-      %td= link_to 'Edit', edit_feed_path(feed)
-      %td= link_to 'Destroy', feed, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Feed', new_feed_path
