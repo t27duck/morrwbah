@@ -9,10 +9,10 @@ class FeedsController < ApplicationController
 
   def show
     if params[:id].to_s == '0'
-      @entries = current_user.entries.order(:published => :desc).unread.page(params[:page]).per_page(5)
+      @entries = current_user.entries.order(:published => :desc).unread
     else
       @feed = current_user.feeds.find(params[:id])
-      @entries = @feed.entries.order(:published => :desc).unread.page(params[:page]).per_page(5)
+      @entries = @feed.entries.order(:published => :desc).unread
     end
     render :layout => nil
   end

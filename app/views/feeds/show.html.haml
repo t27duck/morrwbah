@@ -1,5 +1,20 @@
 -# %p#notice= notice
--@entries.each do |entry|
-  .entry.container{:class => (entry.read ? 'read' : 'unread'), :data => {:id => entry.id}}
-    .title=entry.title
-    .body=entry.body.html_safe
+#entry-list.container
+  -@entries.each do |entry|
+    -classes = []
+    -classes << (entry.read ? 'read' : 'unread')
+    -classes << (entry.starred ? 'starred' : 'unstarred')
+    .entry{:class => classes.join(' '), :data => {:id => entry.id, :feed_id => entry.feed_id}}
+      .read-status
+        -if entry.read
+          =image_tag("silk/icons/email.png", :alt => "Mark as read")
+        -else
+          =image_tag("silk/icons/email_open.png", :alt => "Mark as unread")
+      .starred-status
+        -if entry.starred
+          =image_tag("silk/icons/star.png", :alt => "Unstar this entry")
+        -else
+          =image_tag("silk/icons/star_gray.png", :alt => "Star this entry")
+      .title=entry.title
+
+#entry-display.container

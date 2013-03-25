@@ -1,9 +1,9 @@
 class EntriesController < ApplicationController
-  before_action :set_feed
-  before_action :set_entry, only: [:show, :edit, :update, :destroy]
+  before_action :set_feed_and_entry
 
   def show
-    @entries = @feed.entries
+    #@entry.update_attributes!(:read => true)
+    render :layout => nil
   end
 
   def update
@@ -20,8 +20,9 @@ class EntriesController < ApplicationController
 
   private ######################################################################
 
-  def set_feed
-    @feed = Feed.find(params[:id])
+  def set_feed_and_entry
+    @feed = Feed.find(params[:feed_id])
+    @entry = @feed.entries.find(params[:id])
   end
 
 end

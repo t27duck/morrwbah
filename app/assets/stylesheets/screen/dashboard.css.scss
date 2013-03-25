@@ -2,7 +2,6 @@
   #feed-list {
     float: left;
     width: 220px;    
-    cursor: pointer;
     font-family: arial, sans-serif;
     font-size: 13px;
     height: 21px;
@@ -10,6 +9,7 @@
     text-align: left;
 
     .feed-title {
+      cursor: pointer;
       .selected {
         color: red;
       }
@@ -19,19 +19,35 @@
     }
   }
 
-  #entry-list {
+  #feed-entry-list {
     margin-left: 250px;
-    overflow-y: scroll;
-    height: 100%;
-    min-height: 100%;
 
-    .entry {
-      padding: 7px;
-      margin-bottom: 10px;
+    #entry-list {
+      overflow-y: scroll;
+      height: 180px;
+
+      .entry {
+    
+        .read-status, .starred-status {
+          float: left;
+          margin-right: 6px;
+        }
+
+
+        cursor: pointer;
+        padding: 5px 8px;
+        border-bottom: 1px solid black;
+        font-size: 85%;
+        //margin-bottom: 10px;
+      }
+
+      .selected {
+        border-left-color: #4D90F0;
+      }
     }
 
-    .selected {
-      border-left-color: #4D90F0;
+    #entry-display {
+      overflow-y: scroll;
     }
   }
 }

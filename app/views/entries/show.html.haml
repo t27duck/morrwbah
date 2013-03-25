@@ -1,36 +1,6 @@
-%p#notice= notice
+.entry-title=@entry.title
+.entry-meta
+  ="by #{@entry.author}" if @entry.author
+  ="#{time_ago_in_words(@entry.published)} ago"
 
-%p
-  %b Feed:
-  = @entry.feed_id
-%p
-  %b User:
-  = @entry.user_id
-%p
-  %b Title:
-  = @entry.title
-%p
-  %b Url:
-  = @entry.url
-%p
-  %b Author:
-  = @entry.author
-%p
-  %b Summary:
-  = @entry.summary
-%p
-  %b Content:
-  = @entry.content
-%p
-  %b Published:
-  = @entry.published
-%p
-  %b Read:
-  = @entry.read
-%p
-  %b Starred:
-  = @entry.starred
-
-= link_to 'Edit', edit_entry_path(@entry)
-\|
-= link_to 'Back', entries_path
+.entry-body=@entry.body.html_safe

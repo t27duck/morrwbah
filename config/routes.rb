@@ -9,7 +9,7 @@ Morrwbah::Application.routes.draw do
       get :fetch
     end
 
-    resource :entries, :only => :show
+    resources :entries, :only => [:show, :update]
   end
   
   # The priority is based upon order of creation: first created -> highest priority.
