@@ -1,5 +1,12 @@
 $(document).ready(function() {
 
+  $.ajaxSetup({
+    'beforeSend': function(xhr) {
+      xhr.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+    },
+    cache: false
+  });
+
   $(document).bind('keyup', 'j', function(e) {
     console.log('j was pressed');
   });
@@ -13,15 +20,16 @@ $(document).ready(function() {
 
   // A feed entry is selected
   $('#feed-entry-list').on('click', '.title', function() {
-    var feed_id = $(this).parent().data('feed-id');
-    var entry_id = $(this).parent().data('id');
+    var $entry = $(this).parent();
+    var feed_id = $entry.data('feed-id');
+    var entry_id = $entry.data('id');
     $('#entry-list .entry').removeClass('selected');
     $(this).addClass('selected');
     $.get('feeds/'+feed_id+'/entries/'+entry_id, function(data) {
       $('#entry-display').html(data);
     });
-    if ($(this).parent().hasClass('unread')) {
-      $(this).parent().children('.read-status').trigger('click');
+    if ($entry.hasClass('unread')) {
+      $entry.children('.read-status').trigger('click');
     }
   });
 
@@ -29,42 +37,58 @@ $(document).ready(function() {
   $('#feed-entry-list').on('click', '.read-status', function() {
     var read = '/images/silk/icons/email.png';
     var unread = '/images/silk/icons/email_open.png';
-    var entry = $(this).parent();
-    if (entry.hasClass('unread')) {
-      entry.removeClass('unread');
-      entry.addClass('read');
+    var $entry = $(this).parent();
+    var action, data;
+    if ($entry.hasClass('unread')) {
+      $entry.removeClass('unread');
+      $entry.addClass('read');
       $(this).children('img').attr('src', read);
+      action = true;
     } else {
-      entry.removeClass('read');
-      entry.addClass('unread');
+      $entry.removeClass('read');
+      $entry.addClass('unread');
       $(this).children('img').attr('src', unread);
+      action = false;
     }
 
+    data = {"read": action};
     console.log('read');
+    updateEntry($entry, data);
   });
 
   // Starred/Unstarred
   $('#feed-entry-list').on('click', '.starred-status', function() {
     var unstarred = '/images/silk/icons/star_gray.png';
     var starred = '/images/silk/icons/star.png';
-    var entry = $(this).parent();
-    var action;
-    if (entry.hasClass('unstarred')) {
-      entry.removeClass('unstarred');
-      entry.addClass('starred');
+    var $entry = $(this).parent();
+    var action, data;
+    if ($entry.hasClass('unstarred')) {
+      $entry.removeClass('unstarred');
+      $entry.addClass('starred');
       $(this).children('img').attr('src', starred);
       action = true;
     } else {
-      entry.removeClass('starred');
-      entry.addClass('unstarred');
+      $entry.removeClass('starred');
+      $entry.addClass('unstarred');
       $(this).children('img').attr('src', unstarred);
       action = false;
     }
 
-
-
+    data = {"starred": action};
     console.log('star');
+    updateEntry($entry, data);
   });
+
+  function updateEntry($entry, data) {
+    var params = {'_method': 'put', 'entry': data};
+    var feed_id = $entry.data('feed-id');
+    var entry_id = $entry.data('id');
+    $.ajax({
+      url: '/feeds/'+feed_id+'/entries/'+entry_id, 
+      type: 'POST', 
+      data: params
+    }).done(function() { });
+  }
 
   function populateEntryList(feed_id) {
     $.get('feeds/'+feed_id, function(data) {
@@ -87,7 +111,7 @@ $(document).ready(function() {
   $(window).resize(function() {
     if ($('#entry-display').size() > 0) {
       $('#feed-list').height($(window).height() - $('#feed-list').offset().top - 50);
-      $('#entry-display').height($(window).height() - $('#entry-display').offset().top - 5);
+      $('#entry-display').height($(window).height() - $('#entry-display').offset().top - 15);
     }
   });
   

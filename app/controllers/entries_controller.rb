@@ -9,10 +9,10 @@ class EntriesController < ApplicationController
   def update
     respond_to do |format|
       if @entry.update(entry_params)
-        format.html { redirect_to @entry, notice: 'Entry was successfully updated.' }
+        format.html { render :text => 'success' }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit' }
+        format.html { render text: @entry.errors, status: :unprocessable_entity }
         format.json { render json: @entry.errors, status: :unprocessable_entity }
       end
     end
@@ -25,4 +25,7 @@ class EntriesController < ApplicationController
     @entry = @feed.entries.find(params[:id])
   end
 
+  def entry_params
+    params.require(:entry).permit(:read, :starred)
+  end
 end
