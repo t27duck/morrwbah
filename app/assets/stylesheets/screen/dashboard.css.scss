@@ -22,27 +22,36 @@
   #feed-entry-list {
     margin-left: 250px;
 
+    #feed-meta {
+      margin-bottom: 5px;
+      #feed-title {
+      }
+      #feed-controls {
+        #fetch-feed, #feed-view {
+          float: right;
+        }
+      }
+    }
+
     #entry-list {
       overflow-y: scroll;
-      height: 180px;
-
+      margin-bottom: 5px;
+      height: 120px;
       .entry {
-    
         .read-status, .starred-status {
           float: left;
           margin-right: 6px;
         }
-
-
         cursor: pointer;
         padding: 5px 8px;
         border-bottom: 1px solid black;
         font-size: 85%;
-        //margin-bottom: 10px;
-      }
-
-      .selected {
-        border-left-color: #4D90F0;
+        &.selected {
+          background-color: #F7FAAA !important;
+        }
+        &.unread {
+          background-color: #CBFFBD;
+        }
       }
     }
 

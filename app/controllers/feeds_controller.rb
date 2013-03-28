@@ -9,11 +9,18 @@ class FeedsController < ApplicationController
 
   def show
     if params[:id].to_s == '0'
-      @entries = current_user.entries.order(:published => :desc).unread
+      @feed_title = "All Items"
+      @entries = current_user.entries.order(:published => :desc)
     else
       @feed = current_user.feeds.find(params[:id])
-      @entries = @feed.entries.order(:published => :desc).unread
+      @feed_title = @feed.title
+      @entries = @feed.entries.order(:published => :desc)
     end
+
+    if ['unread','starred'].include?(params[:feed_view])
+      @entries = @entries.send(params[:feed_view])
+    end
+
     render :layout => nil
   end
 

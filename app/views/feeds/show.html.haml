@@ -1,4 +1,13 @@
 -# %p#notice= notice
+
+#feed-meta{:data => {:id => params[:id]}}
+  #feed-controls
+    #fetch-feed=image_tag('silk/icons/arrow_refresh.png')
+    - feed_view_options = [['Unread', 'unread'], ['All Items', 'all'], ['Starred', 'starred']]
+    =select_tag 'feed_view', options_for_select(feed_view_options, params[:feed_view]), :id => "feed-view"
+
+  #feed-title=@feed_title
+
 #entry-list.container
   -@entries.each do |entry|
     -classes = []
@@ -7,14 +16,14 @@
     .entry{:class => classes.join(' '), :data => {:id => entry.id, :feed_id => entry.feed_id}}
       .read-status
         -if entry.read
-          =image_tag("silk/icons/email.png", :alt => "Mark as read")
+          =image_tag('silk/icons/email.png')
         -else
-          =image_tag("silk/icons/email_open.png", :alt => "Mark as unread")
+          =image_tag('silk/icons/email_open.png')
       .starred-status
         -if entry.starred
-          =image_tag("silk/icons/star.png", :alt => "Unstar this entry")
+          =image_tag('silk/icons/star.png')
         -else
-          =image_tag("silk/icons/star_gray.png", :alt => "Star this entry")
+          =image_tag('silk/icons/star_gray.png')
       .title=entry.title
 
 #entry-display.container

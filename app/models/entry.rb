@@ -5,6 +5,7 @@ class Entry < ActiveRecord::Base
   validates_presence_of :feed, :user, :title, :url, :published, :entry_id
 
   scope :unread, -> { where(:read => false) }
+  scope :starred, -> { where(:starred => true) }
 
   def body
     content ? content : summary

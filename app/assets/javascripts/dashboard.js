@@ -8,8 +8,36 @@ $(document).ready(function() {
   });
 
   $(document).bind('keyup', 'j', function(e) {
-    console.log('j was pressed');
+    selectNextEntry('next');
   });
+
+  $(document).bind('keyup', 'k', function(e) {
+    selectNextEntry('prev');
+  });
+
+  function selectNextEntry(direction) {
+     var $selected_entry = $('#feed-entry-list .entry.selected');
+     var $next_selected;
+     if ($selected_entry.size() > 0) {
+       if (direction === 'prev') {
+         $next_selected = $selected_entry.prev();
+       } else {
+         $next_selected = $selected_entry.next();
+       }
+     } else {
+       if (direction === 'prev') {
+         $next_selected = $('#feed-entry-list .entry').last();
+       } else {
+         $next_selected = $('#feed-entry-list .entry').first();
+       }
+     }
+
+     if ($next_selected.size() === 0) {
+       return;
+     }
+     $next_selected.children('.title').trigger('click');
+  }
+
 
   // A feed is selected
   $('#feed-list').on('click', '.feed-title', function() {
@@ -23,8 +51,9 @@ $(document).ready(function() {
     var $entry = $(this).parent();
     var feed_id = $entry.data('feed-id');
     var entry_id = $entry.data('id');
+    $entry[0].scrollIntoView(true);
     $('#entry-list .entry').removeClass('selected');
-    $(this).addClass('selected');
+    $entry.addClass('selected');
     $.get('feeds/'+feed_id+'/entries/'+entry_id, function(data) {
       $('#entry-display').html(data);
     });
@@ -90,8 +119,14 @@ $(document).ready(function() {
     }).done(function() { });
   }
 
+  $('#feed-entry-list').on('change', '#feed-view', function() {
+    var feed_id = $(this).parent().parent().data('id');
+    populateEntryList(feed_id);
+  });
+
   function populateEntryList(feed_id) {
-    $.get('feeds/'+feed_id, function(data) {
+    var feed_view = $('#feed-meta #feed-view').val();
+    $.get('feeds/'+feed_id, {feed_view: feed_view}, function(data) {
       $('#feed-entry-list').html(data);
       refreashFeedList(feed_id);
       $(window).trigger('resize');
@@ -116,11 +151,5 @@ $(document).ready(function() {
   });
   
   $(window).trigger('resize');
-
-  $('#feed-entry-list').on('click', '.entry .title', function() {
-    $(this).parent()[0].scrollIntoView(true);
-    $('#entry-list .entry').removeClass('selected');
-    $(this).addClass('selected');
-  });
 
 });
