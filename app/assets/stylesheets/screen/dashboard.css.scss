@@ -2,7 +2,6 @@
   #feed-list {
     float: left;
     width: 220px;    
-    font-family: arial, sans-serif;
     font-size: 13px;
     height: 21px;
     line-height: 21px;
@@ -38,19 +37,44 @@
       margin-bottom: 5px;
       height: 120px;
       .entry {
+        cursor: pointer;
+        border-bottom: 1px solid #E0E0E0;
+        font-size: 85%;
         .read-status, .starred-status {
           float: left;
           margin-right: 6px;
         }
-        cursor: pointer;
-        padding: 5px 8px;
-        border-bottom: 1px solid black;
-        font-size: 85%;
-        &.selected {
-          background-color: #F7FAAA !important;
+        .entry-bar {
+          padding: 8px 5px;
         }
-        &.unread {
-          background-color: #CBFFBD;
+        &.selected {
+          .entry-bar {
+            background-color: #F7FAAA !important;
+          }
+        }
+        &.read {
+          .entry-bar {
+            background-color: #E8E8E8;
+          }
+        }
+        .entry-content {
+          background-color: white;
+          padding: 10px 24px;
+          .entry-title {
+            margin-bottom: 6px;
+            a {
+              font-weight: bold;
+              font-size: 140%;
+              color: #1155CC;
+              text-decoration: none;
+            }
+          }
+          .entry-meta {
+            color: #666666;
+            margin-bottom: 10px;
+          }
+          .entry-body {
+          }
         }
       }
     }

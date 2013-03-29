@@ -1,4 +1,4 @@
-.entry-title=@entry.title
+.entry-title=link_to @entry.title.html_safe, @entry.url, :target => '_blank'
 .entry-meta
   ="by #{@entry.author}" if @entry.author
   ="#{time_ago_in_words(@entry.published)} ago"
