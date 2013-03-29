@@ -8,9 +8,14 @@ class FeedsController < ApplicationController
   end
 
   def show
-    if params[:id].to_s == '0'
+    case params[:id].to_s
+    when 'all'
       @feed_title = "All Items"
       @entries = current_user.entries.order(:published => :desc)
+    when 'starred'
+      @feed_title = "Starred Items"
+      @entries = current_user.entries.starred.order(:published => :desc)
+      params[:feed_view] = 'all'
     else
       @feed = current_user.feeds.find(params[:id])
       @feed_title = @feed.title

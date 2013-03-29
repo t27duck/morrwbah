@@ -4,27 +4,32 @@
   #feed-controls
     #fetch-feed=image_tag('silk/icons/arrow_refresh.png')
     - feed_view_options = [['Unread', 'unread'], ['All Items', 'all'], ['Starred', 'starred']]
+    - feed_view_options.delete(['Starred','starred']) if params[:id] == 'starred'
     =select_tag 'feed_view', options_for_select(feed_view_options, params[:feed_view]), :id => "feed-view"
 
   #feed-title=@feed_title
 
 #entry-list.container
-  -@entries.each do |entry|
-    -classes = []
-    -classes << (entry.read ? 'read' : 'unread')
-    -classes << (entry.starred ? 'starred' : 'unstarred')
-    .entry{:class => classes.join(' '), :data => {:id => entry.id, :feed_id => entry.feed_id}}
-      .entry-bar
-        .read-status
-          -if entry.read
-            =image_tag('silk/icons/email.png')
-          -else
-            =image_tag('silk/icons/email_open.png')
-        .starred-status
-          -if entry.starred
-            =image_tag('silk/icons/star.png')
-          -else
-            =image_tag('silk/icons/star_gray.png')
-        .title=entry.title.html_safe
-      .clearboth
+  -if @entries.blank?
+    #no-entries
+      ="No #{['unread','starred'].include?(params[:feed_view]) ? params[:feed_view]: nil} entries found for #{@feed_title}"
+  -else
+    -@entries.each do |entry|
+      -classes = []
+      -classes << (entry.read ? 'read' : 'unread')
+      -classes << (entry.starred ? 'starred' : 'unstarred')
+      .entry{:class => classes.join(' '), :data => {:id => entry.id, :feed_id => entry.feed_id}}
+        .entry-bar
+          .read-status
+            -if entry.read
+              =image_tag('silk/icons/email.png')
+            -else
+              =image_tag('silk/icons/email_open.png')
+          .starred-status
+            -if entry.starred
+              =image_tag('silk/icons/star.png')
+            -else
+              =image_tag('silk/icons/star_gray.png')
+          .title=entry.title.html_safe
+        .clearboth
 

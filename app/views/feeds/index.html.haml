@@ -1,8 +1,12 @@
 -unread_count = current_user.all_feeds_unread_count
-.feed-title{:data => {:id => '0', :full_title => 'All Feeds'}}
+.feed-title{:data => {:id => 'all', :full_title => 'All Feeds'}}
   %div{ :class => (unread_count > 0 ? 'unread' : nil) }
     All Feeds
     ="(#{unread_count})" if unread_count > 0
+
+.feed-title{:data => {:id => 'starred', :full_title => 'Starred'}}
+  %div
+    Starred
 
 -@feeds.each do |feed|
   -unread_count = feed.unread_count

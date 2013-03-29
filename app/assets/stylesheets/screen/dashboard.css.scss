@@ -36,6 +36,12 @@
       overflow-y: scroll;
       margin-bottom: 5px;
       height: 120px;
+      #no-entries {
+        text-align: center;
+        margin: 20px;
+        font-size: 180%;
+        font-weight: bold;
+      }
       .entry {
         cursor: pointer;
         border-bottom: 1px solid #E0E0E0;
