@@ -51,9 +51,8 @@ $(document).ready(function() {
     var $entry = $(this).parent().parent();
     var feed_id = $entry.data('feed-id');
     var entry_id = $entry.data('id');
-      $('#entry-list .entry .entry-content').remove();
-    if ($entry.hasClass('selected')) {
-    } else {
+    $('#entry-list .entry .entry-content').remove();
+    if (!$entry.hasClass('selected')) {
       $('#entry-list .entry').removeClass('selected');
       $entry.addClass('selected');
       $.ajax({
