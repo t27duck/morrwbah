@@ -39,6 +39,6 @@ gem 'capistrano', group: :development
 # gem 'debugger'
 
 gem 'haml-rails'
-gem 'feedzirra'
+gem 'feedzirra', :github => 't27duck/feedzirra', :branch => 'lite'
 gem 'whenever'
 gem 'bcrypt-ruby'
