@@ -11,6 +11,8 @@ Morrwbah::Application.routes.draw do
 
     resources :entries, :only => [:show, :update]
   end
+
+  post 'folders/update_order', :to => 'folders#update_order'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

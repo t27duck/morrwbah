@@ -164,8 +164,31 @@ $(document).ready(function() {
     }
   });
  
-  $('.dd').nestable({expandBtnHTML: '', collapseBtnHTML: ''});
+  $('.sortable').nestedSortable({
+          forcePlaceholderSize: true,
+          handle: 'div',
+          helper: 'clone',
+          items: 'li',
+          opacity: .6,
+          placeholder: 'placeholder',
+          revert: 250,
+          tabSize: 0,
+          tolerance: 'pointer',
+          toleranceElement: '> div',
+          maxLevels: 2,
 
+          isTree: true,
+          protectRoot: true
+    //var nested_list = $(this).nestable('serialize');
+    //console.log(nested_list); // debuging output
+    //$.ajax({
+    //  url: '/folders/update_order', 
+    //  type: 'POST', 
+    //  cache: false,
+    //  data: {folders: nested_list}
+    //});
+
+  });
   $(window).trigger('resize');
 
 });
