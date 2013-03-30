@@ -1,17 +1,20 @@
 -unread_count = current_user.all_feeds_unread_count
 .feed-title{:data => {:id => 'all', :full_title => 'All Feeds'}}
   %div{ :class => (unread_count > 0 ? 'unread' : nil) }
+    =image_tag('default_feed_icon.png', :size => '16x16')
     All Feeds
     ="(#{unread_count})" if unread_count > 0
 
 .feed-title{:data => {:id => 'starred', :full_title => 'Starred'}}
   %div
+    =image_tag('silk/icons/star.png', :size => '16x16')
     Starred
 
 -@feeds.each do |feed|
   -unread_count = feed.unread_count
   .feed-title{:data => {:id => feed.id, :full_title => feed.title}}
     %div{ :class => (unread_count > 0 ? 'unread' : nil) }
+      %span.feed-icon=image_tag(feed.icon_path, :size => '16x16')
       =truncate(feed.title, :length => 25)
       %span.unread-count="(#{unread_count})" if unread_count > 0
 

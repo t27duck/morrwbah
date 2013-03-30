@@ -1,8 +1,9 @@
+require 'net/http'
 class Feed < ActiveRecord::Base
   belongs_to :user
   has_many :entries, :dependent => :delete_all
-
   validates_presence_of :user, :title, :feed_url, :last_modified
+  before_create :set_icon
 
   def set_info!
     if feed_object.respond_to?(:title)
@@ -44,7 +45,41 @@ class Feed < ActiveRecord::Base
     end
   end
 
+  def set_icon
+    self.icon_path = remote_favicon_url(url) || '/images/default_feed_icon.png'
+  end
+
   def feed_object
     @feed_object ||= Feedzirra::Feed.fetch_and_parse(feed_url)
   end
+
+  def remote_favicon_url(feed_url)
+    uri = URI.parse(feed_url)
+    uri = URI.parse("http://#{feed_url}") if uri.scheme.nil?
+    host = uri.host.downcase
+    use_ssl = false
+    if url.include?("https://")
+      use_ssl = true
+      favicon_url = "https://#{host}/favicon.ico"
+    else
+      favicon_url = "http://#{host}/favicon.ico"
+    end
+ 
+    begin
+      uri = URI.parse(favicon_url)
+      response = nil
+      http = Net::HTTP.new uri.host, uri.port
+      if use_ssl
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        http.use_ssl = true
+      end
+      http.start{|http|
+        response = http.head(uri.path)
+      }
+      response.code == "200" ? favicon_url : nil
+    rescue
+      nil
+    end
+  end
+
 end
