@@ -10,11 +10,17 @@
     =image_tag('silk/icons/star.png', :size => '16x16')
     Starred
 
--@feeds.each do |feed|
-  -unread_count = feed.unread_count
-  .feed-title{:data => {:id => feed.id, :full_title => feed.title}}
-    %div{ :class => (unread_count > 0 ? 'unread' : nil) }
-      %span.feed-icon=image_tag(feed.icon_path, :size => '16x16')
-      =truncate(feed.title, :length => 25)
-      %span.unread-count="(#{unread_count})" if unread_count > 0
+#feed-folder-list.dd
+  %ol.dd-list
+    -@folders.each do |folder|
+      %li.dd-item.folder-title{:data => {:id => folder.id, :type => 'folder'}}
+        .dd-handle=folder.name
+        %ol.dd-list.folder-group
+          -folder.feeds.order(:position).each do |feed|
+            -unread_count = feed.unread_count
+            %li.dd-item.feed-title{:data => {:id => feed.id, :type => 'feed', :full_title => feed.title}}
+              %div.dd-handle{ :class => (unread_count > 0 ? 'unread' : nil) }
+                %span.feed-icon=image_tag(feed.icon_path, :size => '16x16')
+                =truncate(feed.title, :length => 25)
+                %span.unread-count="(#{unread_count})" if unread_count > 0
 

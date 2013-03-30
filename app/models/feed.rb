@@ -1,6 +1,7 @@
 require 'net/http'
 class Feed < ActiveRecord::Base
   belongs_to :user
+  belongs_to :folder
   has_many :entries, :dependent => :delete_all
   validates_presence_of :user, :title, :feed_url, :last_modified
   before_create :set_icon

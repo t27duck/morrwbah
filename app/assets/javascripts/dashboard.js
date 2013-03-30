@@ -163,7 +163,9 @@ $(document).ready(function() {
       $('#entry-list').height($(window).height() - $('#entry-list').offset().top - 15);
     }
   });
-  
+ 
+  $('.dd').nestable({expandBtnHTML: '', collapseBtnHTML: ''});
+
   $(window).trigger('resize');
 
 });

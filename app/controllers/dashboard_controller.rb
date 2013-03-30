@@ -2,6 +2,6 @@ class DashboardController < ApplicationController
   before_filter :require_user
 
   def index
-    @feeds = current_user.feeds
+    @folders = current_user.folders.order(:position)
   end
 end

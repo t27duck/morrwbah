@@ -1,11 +1,21 @@
 #dashboard {
   #feed-list {
     float: left;
-    width: 220px;    
+    width: 250px;    
     font-size: 13px;
     height: 21px;
     line-height: 21px;
     text-align: left;
+
+    #feed-folder-list {
+      ol {
+        list-style: none;
+        padding: 0;
+      }
+      ol.folder-group {
+        margin-left: 16px;
+      }
+    }
 
     .feed-title {
       cursor: pointer;
@@ -19,7 +29,7 @@
   }
 
   #feed-entry-list {
-    margin-left: 250px;
+    margin-left: 280px;
 
     #feed-meta {
       margin-bottom: 5px;

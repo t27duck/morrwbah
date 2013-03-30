@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
 
   has_many :feeds
   has_many :entries
+  has_many :folders
   
   def fetch_feeds!
     feeds.map(&:fetch!)

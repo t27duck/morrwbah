@@ -3,7 +3,7 @@ class FeedsController < ApplicationController
   before_action :require_user
 
   def index
-    @feeds = current_user.feeds
+    @folders = current_user.folders.group(:position)
     render :layout => nil
   end
 
