@@ -154,6 +154,7 @@ $(document).ready(function() {
       if (typeof active_feed_id != 'undefined') {
         $('div', $(".feed-title[data-id='"+active_feed_id+"']") ).addClass('selected');
       }
+      setSortableOnFeedList();
     });
   }
 
@@ -163,25 +164,36 @@ $(document).ready(function() {
       $('#entry-list').height($(window).height() - $('#entry-list').offset().top - 15);
     }
   });
- 
-  $('.sortable').nestedSortable({
-    forcePlaceholderSize: true,
-    handle: 'div',
-    helper: 'clone',
-    items: 'li',
-    opacity: .6,
-    placeholder: 'placeholder',
-    revert: 250,
-    tabSize: 0,
-    tolerance: 'pointer',
-    toleranceElement: '> div',
-    maxLevels: 2,
-    isTree: true,
-    protectRoot: true,
-    change: function() {
-      console.log($(this).nestedSortable('toHierarchy', {startDepthCount: 0}));
-    }
-  });
+
+  function setSortableOnFeedList() {
+    $('.sortable', '#feed-list').nestedSortable({
+      forcePlaceholderSize: true,
+      handle: 'div',
+      items: 'li',
+      opacity: .6,
+      placeholder: 'placeholder',
+      tabSize: 0,
+      toleranceElement: '> div',
+      maxLevels: 2,
+      isTree: true,
+      protectRoot: true,
+      axis: 'y',
+      update: function(event, ui) {
+        var folder_structure_data = $(this).nestedSortable('toHierarchy');
+        $.ajax({
+          type: "POST",
+          url: "/folders/update_order.json",
+          data: JSON.stringify({folder_structure: folder_structure_data}),
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+        }).done(function(data, textStatus, jqXHR) {
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+        });
+      }
+    });
+  }
+
+  setSortableOnFeedList();
   $(window).trigger('resize');
 
 });
