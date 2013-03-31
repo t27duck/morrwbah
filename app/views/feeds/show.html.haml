@@ -9,7 +9,7 @@
 
   #feed-title=@feed_title
 
-#entry-list.container
+#entry-list
   -if @entries.blank?
     #no-entries
       ="No #{['unread','starred'].include?(params[:feed_view]) ? params[:feed_view]: nil} entries found for #{@feed_title}"

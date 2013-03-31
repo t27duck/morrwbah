@@ -44,7 +44,6 @@
 
   #feed-entry-list {
     margin-left: 280px;
-
     #feed-meta {
       margin-bottom: 5px;
       #feed-title {
@@ -60,6 +59,7 @@
       overflow-y: scroll;
       margin-bottom: 5px;
       height: 120px;
+      border-left: 1px solid #DDDDDD;
       #no-entries {
         text-align: center;
         margin: 20px;
