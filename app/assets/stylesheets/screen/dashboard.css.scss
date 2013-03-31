@@ -6,14 +6,28 @@
     height: 21px;
     line-height: 21px;
     text-align: left;
+    
+    .mjs-nestedSortable-error {
+      background: #fbe3e4;
+      border-color: transparent;
+    }
+
+    ol {
+      margin-left: 16px;
+    }
+
+    ol.sortable {
+      margin: 0;
+    }
+
+    .placeholder {
+      outline: 1px dashed #4183C4;
+    }
 
     #feed-folder-list {
       ol {
         list-style: none;
         padding: 0;
-      }
-      ol.folder-group {
-        margin-left: 16px;
       }
     }
 
