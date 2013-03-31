@@ -31,13 +31,18 @@
       }
     }
 
-    .feed-title {
+    .feed-title, .folder-title {
       cursor: pointer;
       .selected {
         color: red;
       }
       .unread {
         font-weight: bold;
+      }
+      span.unread-count {
+        font-weight: normal;
+        font-size: 85%;
+        color: #666666;
       }
     }
   }

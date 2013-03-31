@@ -12,7 +12,11 @@ Morrwbah::Application.routes.draw do
     resources :entries, :only => [:show, :update]
   end
 
-  post 'folders/update_order.json', :to => 'folders#update_order'
+  resources :folders, :only => [:show] do
+    collection do
+      post :update_order, :constraints => {:format => /(json)/}
+    end
+  end
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,5 +1,12 @@
 class FoldersController < ApplicationController
 
+  def show
+    @folder = current_user.folders.find(params[:id])
+    @feed_title = @folder.name
+    @entries = current_user.entries.joins(:feed).where(:feeds => {:folder_id => @folder.id}).order(:published => :desc)
+    render 'feeds/show', :layout => nil
+  end
+
   # JSON request only
   def update_order
     Folder.transaction do

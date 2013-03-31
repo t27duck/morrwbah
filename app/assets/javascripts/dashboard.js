@@ -42,9 +42,19 @@ $(document).ready(function() {
   // A feed is selected
   $('#feed-list').on('click', '.feed-title', function() {
     var $entry_list = $('#entry-list');
-    $entry_list.data('feed-id', $(this).data("id"));
-    populateEntryList($(this).data("id"));
+    $entry_list.data('id', $(this).data("id"));
+    $entry_list.data('type', 'feed');
+    populateEntryList($(this).data("id"), 'unread', 'feed');
   });
+
+  // A folder is selected
+  $('#feed-list').on('click', '.folder-title>div', function() {
+    var $entry_list = $('#entry-list');
+    $entry_list.data('id', $(this).parent().data("id"));
+    $entry_list.data('type', 'folder');
+    populateEntryList($(this).parent().data("id"), 'unread', 'folder');
+  });
+
 
   // A feed entry is selected
   $('#feed-entry-list').on('click', '.title', function() {
@@ -131,28 +141,31 @@ $(document).ready(function() {
   }
 
   $('#feed-entry-list').on('change', '#feed-view', function() {
-    var feed_id = $(this).parent().parent().data('id');
+    var id = $(this).parent().parent().data('id');
+    var type = $(this).parent().parent().data('type');
     var feed_view = $(this).val();
-    populateEntryList(feed_id, feed_view);
+    populateEntryList(id, feed_view, type);
   });
 
-  function populateEntryList(feed_id, feed_view) {
+  function populateEntryList(id, feed_view, type) {
     if (typeof feed_view === 'undefined') {
       feed_view = 'unread';
     }
-    $.get('feeds/'+feed_id, {feed_view: feed_view}, function(data) {
+    $.get(type+'s/'+id, {feed_view: feed_view}, function(data) {
       $('#feed-entry-list').html(data);
-      refreashFeedList(feed_id);
+      refreashFeedList(type, id);
       $(window).trigger('resize');
     });
   }
 
-  function refreashFeedList(active_feed_id) {
+  function refreashFeedList(type, active_id) {
+    console.log(type);
     $.get('feeds', function(data) {
       $('#feed-list').html(data);
       $('#feed-list .feed-title div').removeClass('selected');
-      if (typeof active_feed_id != 'undefined') {
-        $('div', $(".feed-title[data-id='"+active_feed_id+"']") ).addClass('selected');
+      $('#feed-list .folder-title div').removeClass('selected');
+      if (typeof active_id != 'undefined') {
+        $("."+type+"-title[data-id='"+active_id+"']").children('div').addClass('selected');
       }
       setSortableOnFeedList();
     });

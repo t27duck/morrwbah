@@ -13,15 +13,17 @@
 #feed-folder-list
   %ol.sortable
     -@folders.each do |folder|
-      %li.folder-title{:id => "folder-#{folder.id}", :data => {:id => folder.id, :type => 'folder'}}
-        %div
+      -unread_count = folder.unread_count
+      %li.folder-title{:id => "folder-#{folder.id}", :data => {:id => folder.id, :type => 'folder', :unread_count => unread_count}}
+        %div{ :class => (unread_count > 0 ? 'unread' : nil) }
           =image_tag('silk/icons/folder.png')
           =folder.name
+          %span.unread-count="(#{unread_count})" if unread_count > 0
         -if folder.feeds.present?
           %ol.folder-group
             -folder.feeds.order(:position).each do |feed|
               -unread_count = feed.unread_count
-              %li.feed-title{:id => "feed-#{feed.id}", :data => {:id => feed.id, :type => 'feed', :full_title => feed.title}}
+              %li.feed-title{:id => "feed-#{feed.id}", :data => {:id => feed.id, :type => 'feed', :full_title => feed.title, :unread_count => unread_count}}
                 %div{ :class => (unread_count > 0 ? 'unread' : nil) }
                   %span.feed-icon=image_tag(feed.icon_path, :size => '16x16')
                   =truncate(feed.title, :length => 25)
