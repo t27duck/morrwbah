@@ -14,7 +14,9 @@
   %ol.sortable
     -@folders.each do |folder|
       %li.folder-title{:data => {:id => folder.id, :type => 'folder'}}
-        %div=folder.name
+        %div
+          =image_tag('silk/icons/folder.png')
+          =folder.name
         -if folder.feeds.present?
           %ol.folder-group
             -folder.feeds.order(:position).each do |feed|
