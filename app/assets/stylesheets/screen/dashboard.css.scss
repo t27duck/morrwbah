@@ -45,6 +45,13 @@
         color: #666666;
       }
     }
+
+    .feed-title {
+      margin-top: 4px;
+    }
+    .folder-title {
+      margin-top: 10px;
+    }
   }
 
   #feed-entry-list {
@@ -52,10 +59,16 @@
     #feed-meta {
       margin-bottom: 5px;
       #feed-title {
+        font-weight: bold;
+        margin: 4px 0 8px 2px;
+        font-size: 16px;
       }
       #feed-controls {
         #fetch-feed, #feed-view {
           float: right;
+        }
+        #fetch-feed {
+          cursor: pointer;
         }
       }
     }
@@ -68,7 +81,7 @@
       #no-entries {
         text-align: center;
         margin: 20px;
-        font-size: 180%;
+        font-size: 140%;
         font-weight: bold;
       }
       .entry {

@@ -25,6 +25,8 @@ class FeedsController < ApplicationController
     if ['unread','starred'].include?(params[:feed_view])
       @entries = @entries.send(params[:feed_view])
     end
+    
+    @feed_type = 'feed'
 
     render :layout => nil
   end

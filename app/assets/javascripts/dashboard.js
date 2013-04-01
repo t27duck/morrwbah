@@ -55,7 +55,6 @@ $(document).ready(function() {
     populateEntryList($(this).parent().data("id"), 'unread', 'folder');
   });
 
-
   // A feed entry is selected
   $('#feed-entry-list').on('click', '.title', function() {
     var $entry = $(this).parent().parent();
@@ -130,6 +129,13 @@ $(document).ready(function() {
     updateEntry($entry, data);
   });
 
+  $('#feed-entry-list').on('click', '#fetch-feed', function() {
+    var id = $(this).parent().parent().data('id');
+    var type = $(this).parent().parent().data('type');
+    var feed_view = $(this).parent().children('#feed-view').val();
+    populateEntryList(id, feed_view, type);
+  });
+
   function updateEntry($entry, data) {
     var params = {'_method': 'put', 'entry': data};
     var feed_id = $entry.data('feed-id');
@@ -151,10 +157,18 @@ $(document).ready(function() {
   function populateEntryList(id, feed_view, type) {
     if (typeof feed_view === 'undefined') {
       feed_view = 'unread';
-    }
-    $.get(type+'s/'+id, {feed_view: feed_view}, function(data) {
+    }  
+    $.ajax({
+      url: type+'s/'+id, 
+      data: {feed_view: feed_view},
+      type: 'GET',
+      beforeSend: function() {
+        $('#loading-notice.notice').removeClass('hidden');
+      }
+    }).done(function(data) {
       $('#feed-entry-list').html(data);
       refreashFeedList(type, id);
+      $('#loading-notice.notice').addClass('hidden');
       $(window).trigger('resize');
     });
   }

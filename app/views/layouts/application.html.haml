@@ -6,5 +6,6 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
 %body{:id => controller.controller_name}
+  #loading-notice.notice.hidden Loading...
   #wrapper
     = yield
