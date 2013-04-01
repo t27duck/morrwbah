@@ -85,24 +85,26 @@ $(document).ready(function() {
 
   // Read/Unread
   $('#feed-entry-list').on('click', '.read-status', function() {
-    var read = '/images/silk/icons/email.png';
-    var unread = '/images/silk/icons/email_open.png';
+    var read = '/images/silk/icons/email_open.png';
+    var unread = '/images/silk/icons/email.png';
     var $entry = $(this).parent().parent();
-    var action, data;
+    var action, data, direction;
     if ($entry.hasClass('unread')) {
       $entry.removeClass('unread');
       $entry.addClass('read');
       $(this).children('img').attr('src', read);
       action = true;
+      direction = 'down';
     } else {
       $entry.removeClass('read');
       $entry.addClass('unread');
       $(this).children('img').attr('src', unread);
       action = false;
+      direction = 'up';
     }
 
     data = {"read": action};
-    console.log('read');
+    updateUnreadCount($entry.data('feed-id'), direction)
     updateEntry($entry, data);
   });
 
@@ -125,7 +127,6 @@ $(document).ready(function() {
     }
 
     data = {"starred": action};
-    console.log('star');
     updateEntry($entry, data);
   });
 
@@ -159,7 +160,6 @@ $(document).ready(function() {
   }
 
   function refreashFeedList(type, active_id) {
-    console.log(type);
     $.get('feeds', function(data) {
       $('#feed-list').html(data);
       $('#feed-list .feed-title div').removeClass('selected');
@@ -204,6 +204,36 @@ $(document).ready(function() {
         });
       }
     });
+  }
+
+  function updateUnreadCount(feed_id, direction) {
+    var $feed_title = $('#feed-'+feed_id+'.feed-title');
+    var $folder_title = $feed_title.closest('li.folder-title');
+    var $all_items = $('#all-items.feed-title');
+    adjustUnreadCountOnElement($feed_title, direction);
+    adjustUnreadCountOnElement($folder_title, direction);
+    adjustUnreadCountOnElement($all_items, direction);
+  }
+
+  function adjustUnreadCountOnElement($elm, direction) {
+    var current_unread = $elm.data('unread-count');
+    var $div_handle = $('div:first', $elm);
+    var $unread_count_span = $('span.unread-count:first', $elm);
+    var new_unread;
+    if (direction === 'up') {
+      new_unread = current_unread + 1;
+    } else {
+      new_unread = current_unread - 1;
+    }
+
+    $elm.data('unread-count', new_unread);
+    if (new_unread > 0) {
+      $div_handle.addClass('unread');
+      $unread_count_span.html('('+new_unread+')');
+    } else {
+      $div_handle.removeClass('unread');
+      $unread_count_span.html('');
+    }
   }
 
   setSortableOnFeedList();

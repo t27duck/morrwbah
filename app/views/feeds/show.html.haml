@@ -22,9 +22,9 @@
         .entry-bar
           .read-status
             -if entry.read
-              =image_tag('silk/icons/email.png')
-            -else
               =image_tag('silk/icons/email_open.png')
+            -else
+              =image_tag('silk/icons/email.png')
           .starred-status
             -if entry.starred
               =image_tag('silk/icons/star.png')
