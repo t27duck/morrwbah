@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130330192339) do
+ActiveRecord::Schema.define(version: 20130319011444) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(version: 20130330192339) do
     t.integer  "feed_id",                    null: false
     t.integer  "user_id",                    null: false
     t.string   "title",                      null: false
-    t.string   "url",                        null: false
-    t.text     "entry_id",                   null: false
+    t.text     "url",                        null: false
+    t.text     "guid",                       null: false
     t.string   "author"
     t.text     "summary"
     t.text     "content"
@@ -32,23 +32,23 @@ ActiveRecord::Schema.define(version: 20130330192339) do
     t.datetime "updated_at"
   end
 
-  add_index "entries", ["feed_id", "user_id", "entry_id"], name: "index_entries_on_feed_id_and_user_id_and_entry_id"
+  add_index "entries", ["feed_id", "user_id", "guid"], name: "index_entries_on_feed_id_and_user_id_and_guid"
   add_index "entries", ["feed_id"], name: "index_entries_on_feed_id"
   add_index "entries", ["user_id"], name: "index_entries_on_user_id"
 
   create_table "feeds", force: true do |t|
     t.integer  "user_id",                   null: false
+    t.integer  "position",      default: 0, null: false
+    t.integer  "folder_id",                 null: false
     t.string   "title",                     null: false
     t.string   "url"
     t.string   "feed_url",                  null: false
     t.string   "etag"
+    t.string   "icon_path"
     t.datetime "last_modified",             null: false
     t.datetime "last_checked"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "icon_path"
-    t.integer  "position",      default: 0, null: false
-    t.integer  "folder_id",                 null: false
   end
 
   add_index "feeds", ["folder_id"], name: "index_feeds_on_folder_id"

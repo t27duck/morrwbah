@@ -11,6 +11,5 @@ class CreateFolders < ActiveRecord::Migration
     add_index :folders, :user_id
     add_index :folders, :position
 
-    Folder.create!(:user => User.first, :name => "Subscriptions")
   end
 end

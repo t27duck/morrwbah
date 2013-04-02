@@ -1,6 +1,7 @@
 class Folder < ActiveRecord::Base
   belongs_to :user
-  has_many :feeds
+  
+  has_many :feeds, :dependent => :destroy
 
   validates_presence_of :user, :position, :name
 

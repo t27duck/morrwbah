@@ -10,5 +10,7 @@ class CreateUsers < ActiveRecord::Migration
 
     add_index :users, :login, :unique => true
     add_index :users, :auth_token, :unique => true
+
+    User.create!(:login => 'user', :password => '12345', :password_confirmation => '12345')
   end
 end

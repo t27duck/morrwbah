@@ -2,8 +2,11 @@ require 'net/http'
 class Feed < ActiveRecord::Base
   belongs_to :user
   belongs_to :folder
+
   has_many :entries, :dependent => :delete_all
-  validates_presence_of :user, :title, :feed_url, :last_modified
+  
+  validates_presence_of :user, :title, :feed_url, :last_modified, :folder
+  
   before_create :set_icon
 
   def set_info!
@@ -30,7 +33,11 @@ class Feed < ActiveRecord::Base
 
   def create_new_entries!
     feed_object.entries.each do |e|
-      unless Entry.exists?(:feed_id => id, :user_id => user_id, :entry_id => e.entry_id)
+      identifier = e.entry_id if e.respond_to?(:entry_id)  
+      identifier ||= e.guid if e.respond_to?(:guid)
+      identifier ||= e.url
+
+      unless Entry.exists?(:feed_id => id, :user_id => user_id, :guid => identifier)
         Entry.create!({
           :feed_id   => id,
           :user_id   => user_id,
@@ -38,9 +45,9 @@ class Feed < ActiveRecord::Base
           :url       => e.url,
           :author    => e.author,
           :published => e.published,
-          :entry_id  => e.entry_id,
+          :guid      => identifier,
           :summary   => e.summary,
-          :content   => e.content
+          :content   => e.respond_to?(:content) ? e.content : nil
         })
       end
     end
