@@ -98,6 +98,9 @@
         .entry-bar {
           padding: 8px 5px;
         }
+        .entry-link {
+          float: right;
+        }
         &.selected {
           .entry-bar {
             background-color: #F7FAAA !important;

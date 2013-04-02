@@ -9,6 +9,7 @@ class CreateFeeds < ActiveRecord::Migration
       t.string :feed_url, :null => false
       t.string :etag
       t.string :icon_path
+      t.boolean :sanitize, :null => false, :default => true
       t.datetime :last_modified, :null => false
       t.datetime :last_checked
 
