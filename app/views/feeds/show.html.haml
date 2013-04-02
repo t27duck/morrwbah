@@ -7,7 +7,10 @@
     - feed_view_options.delete(['Starred','starred']) if params[:id] == 'starred'
     =select_tag 'feed_view', options_for_select(feed_view_options, params[:feed_view]), :id => "feed-view"
 
-  #feed-title=@feed_title
+  #feed-title
+    -if @feed
+      =link_to image_tag('silk/icons/world_link.png', :size => '16x16'), @feed.url, :target => '_blank'
+    =@feed_title
 
 #entry-list
   -if @entries.blank?

@@ -21,6 +21,7 @@
           =folder.name
           %span.unread-count
             ="(#{unread_count})" if unread_count > 0
+          .config.hidden=image_tag('silk/icons/cog.png', :size => '16x16')
         -if folder.feeds.present?
           %ol.folder-group
             -folder.feeds.order(:position).each do |feed|
@@ -31,4 +32,5 @@
                   =truncate(feed.title, :length => 25)
                   %span.unread-count
                     ="(#{unread_count})" if unread_count > 0
+                  .config.hidden=link_to image_tag('silk/icons/cog.png', :size => '16x16'), 'http://www.google.com'
 

@@ -55,6 +55,20 @@ $(document).ready(function() {
     populateEntryList($(this).parent().data("id"), 'unread', 'folder');
   });
 
+  $('#feed-list').on({
+    mouseenter: function() {
+      $('.config', $(this)).removeClass('hidden');
+    },
+    mouseleave: function() {
+      $('.config', $(this)).addClass('hidden');
+    }
+  }, '.folder-title>div, .feed-title>div');
+
+
+  $('#feed-list').on('click', '.config', function(e) {
+    e.stopPropagation();
+  });
+
   // A feed entry is selected
   $('#feed-entry-list').on('click', '.title', function() {
     var $entry = $(this).parent().parent();
