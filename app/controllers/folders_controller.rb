@@ -1,16 +1,5 @@
 class FoldersController < ApplicationController
-
-  def show
-    @folder = current_user.folders.find(params[:id])
-    @feed_title = @folder.name
-    @entries = current_user.entries.joins(:feed).where(:feeds => {:folder_id => @folder.id}).order(:published => :desc)
-    if ['unread','starred'].include?(params[:feed_view])
-      @entries = @entries.send(params[:feed_view])
-    end
-    @feed_type = 'folder'
-    render 'feeds/show', :layout => nil
-  end
-
+  
   # JSON request only
   def update_order
     Folder.transaction do

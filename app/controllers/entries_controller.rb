@@ -1,5 +1,6 @@
+require 'entry_lister'
 class EntriesController < ApplicationController
-  before_action :set_feed_and_entry
+  before_action :set_feed_and_entry, :except => [:fetch]
 
   def show
     #@entry.update_attributes!(:read => true)
@@ -16,6 +17,13 @@ class EntriesController < ApplicationController
         format.json { render json: @entry.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def fetch
+    @lister = EntryLister.new(current_user, params[:type], params[:filter], params[:id])
+    @lister.generate
+    
+    render :layout => nil
   end
 
   private ######################################################################

@@ -1,33 +1,8 @@
 class FeedsController < ApplicationController
   before_action :set_feed, only: [:edit, :update, :destroy, :fetch]
-  before_action :require_user
 
   def index
     @folders = current_user.folders.order(:position)
-    render :layout => nil
-  end
-
-  def show
-    case params[:id].to_s
-    when 'all'
-      @feed_title = "All Items"
-      @entries = current_user.entries.order(:published => :desc)
-    when 'starred'
-      @feed_title = "Starred Items"
-      @entries = current_user.entries.starred.order(:published => :desc)
-      params[:feed_view] = 'all'
-    else
-      @feed = current_user.feeds.find(params[:id])
-      @feed_title = @feed.title
-      @entries = @feed.entries.order(:published => :desc)
-    end
-
-    if ['unread','starred'].include?(params[:feed_view])
-      @entries = @entries.send(params[:feed_view])
-    end
-    
-    @feed_type = 'feed'
-
     render :layout => nil
   end
 

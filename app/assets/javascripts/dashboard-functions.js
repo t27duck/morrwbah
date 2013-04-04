@@ -21,13 +21,18 @@
      $('.title', $next_selected).trigger('click');
   }
 
-  function populateEntryList(id, feed_view, type) {
-    if (typeof feed_view === 'undefined') {
-      feed_view = 'unread';
-    }  
+  function populateEntryList(id, filter, type) {
+    if (typeof filter === 'undefined') {
+      filter = 'unread';
+    }
+    var data = {
+      id: id,
+      filter: filter,
+      type: type
+    }
     $.ajax({
-      url: type+'s/'+id, 
-      data: {feed_view: feed_view},
+      url: '/fetchentries', 
+      data: data,
       type: 'GET',
       beforeSend: function() {
         $('#loading-notice.notice').removeClass('hidden');

@@ -4,4 +4,5 @@ class DashboardController < ApplicationController
   def index
     @folders = current_user.folders.order(:position)
   end
+
 end

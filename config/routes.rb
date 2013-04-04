@@ -3,7 +3,7 @@ Morrwbah::Application.routes.draw do
   root :to => 'dashboard#index'
   
   resources :dashboard, :only => :index
-
+  get 'fetchentries', :to => 'entries#fetch'
   resources :feeds do
     member do
       get :fetch
