@@ -1,9 +1,9 @@
 #feed-meta{:data => {:id => params[:id], :type => @lister.type}}
   #feed-controls
-    #fetch-feed=image_tag('silk/icons/arrow_refresh.png')
-    - feed_view_options = [['Unread', 'unread'], ['All Items', 'all'], ['Starred', 'starred']]
-    - feed_view_options.delete(['Starred','starred']) if @lister.identifier == 'starred'
-    =select_tag 'feed_view', options_for_select(feed_view_options, @lister.view), :id => "feed-view"
+    #fetch-feed=image_tag('silk/icons/arrow_refresh.png', :size => '16x16')
+    - filters = [['Unread', 'unread'], ['All Items', 'all'], ['Starred', 'starred']]
+    - filters.delete(['Starred','starred']) if @lister.identifier == 'starred'
+    =select_tag 'filter', options_for_select(filters, @lister.filter)
 
   #feed-title
     -if @lister.feed
@@ -13,7 +13,7 @@
 #entry-list
   -if @lister.entries.blank?
     #no-entries
-      ="No #{['unread','starred'].include?(@lister.view) ? @lister.view : nil} entries found for #{@lister.title}"
+      ="No #{['unread','starred'].include?(@lister.filter) ? @lister.filter : nil} entries found for #{@lister.title}"
   -else
     -@lister.entries.each do |entry|
       -classes = []

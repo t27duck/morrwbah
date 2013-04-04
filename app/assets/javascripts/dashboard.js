@@ -129,16 +129,16 @@ $(document).ready(function() {
   $('#feed-entry-list').on('click', '#fetch-feed', function() {
     var id = $(this).parent().parent().data('id');
     var type = $(this).parent().parent().data('type');
-    var feed_view = $(this).parent().children('#feed-view').val();
-    populateEntryList(id, feed_view, type);
+    var filter = $(this).parent().children('#filter').val();
+    populateEntryList(id, filter, type);
   });
 
 
-  $('#feed-entry-list').on('change', '#feed-view', function() {
+  $('#feed-entry-list').on('change', '#filter', function() {
     var id = $(this).parent().parent().data('id');
     var type = $(this).parent().parent().data('type');
-    var feed_view = $(this).val();
-    populateEntryList(id, feed_view, type);
+    var filter = $(this).val();
+    populateEntryList(id, filter, type);
   });
 
   $(window).resize(function() {
