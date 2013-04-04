@@ -15,20 +15,10 @@ $(document).ready(function() {
     selectNextEntry('prev');
   });
 
-  // A feed is selected
-  $('#feed-list').on('click', '.feed-title', function() {
-    var $entry_list = $('#entry-list');
-    $entry_list.data('id', $(this).data("id"));
-    $entry_list.data('type', 'feed');
-    populateEntryList($(this).data("id"), 'unread', 'feed');
-  });
-
-  // A folder is selected
-  $('#feed-list').on('click', '.folder-title>div', function() {
-    var $entry_list = $('#entry-list');
-    $entry_list.data('id', $(this).parent().data("id"));
-    $entry_list.data('type', 'folder');
-    populateEntryList($(this).parent().data("id"), 'unread', 'folder');
+  $('#feed-list').on('click', '.folder-title>div, .feed-title>div', function() {
+    var id = $(this).parent().data('id');
+    var type = $(this).parent().data('type');
+    populateEntryList(id, 'unread', type);
   });
 
   $('#feed-list').on({
@@ -74,49 +64,32 @@ $(document).ready(function() {
 
   // Read/Unread
   $('#feed-entry-list').on('click', '.read-status', function() {
-    var read = '/images/silk/icons/email_open.png';
-    var unread = '/images/silk/icons/email.png';
     var $entry = $(this).parent().parent();
-    var action, data, direction;
     if ($entry.hasClass('unread')) {
-      $entry.removeClass('unread');
-      $entry.addClass('read');
-      $(this).children('img').attr('src', read);
-      action = true;
-      direction = 'down';
+      $entry.removeClass('unread').addClass('read');
+      $(this).children('img').attr('src', '/images/silk/icons/email_open.png');
+      updateUnreadCount($entry.data('feed-id'), 'down')
+      updateEntry($entry, {"read": true});
     } else {
-      $entry.removeClass('read');
-      $entry.addClass('unread');
-      $(this).children('img').attr('src', unread);
-      action = false;
-      direction = 'up';
+      $entry.removeClass('read').addClass('unread');
+      $(this).children('img').attr('src', '/images/silk/icons/email.png');
+      updateUnreadCount($entry.data('feed-id'), 'up')
+      updateEntry($entry, {"read": false});
     }
-
-    data = {"read": action};
-    updateUnreadCount($entry.data('feed-id'), direction)
-    updateEntry($entry, data);
   });
 
   // Starred/Unstarred
   $('#feed-entry-list').on('click', '.starred-status', function() {
-    var unstarred = '/images/silk/icons/star_gray.png';
-    var starred = '/images/silk/icons/star.png';
     var $entry = $(this).parent().parent();
-    var action, data;
     if ($entry.hasClass('unstarred')) {
-      $entry.removeClass('unstarred');
-      $entry.addClass('starred');
-      $(this).children('img').attr('src', starred);
-      action = true;
+      $entry.removeClass('unstarred').addClass('starred');
+      $(this).children('img').attr('src', '/images/silk/icons/star.png');
+      updateEntry($entry, {'starred': true});
     } else {
-      $entry.removeClass('starred');
-      $entry.addClass('unstarred');
-      $(this).children('img').attr('src', unstarred);
-      action = false;
+      $entry.removeClass('starred').addClass('unstarred');
+      $(this).children('img').attr('src', '/images/silk/icons/star_gray.png');
+      updateEntry($entry, {'starred': false});
     }
-
-    data = {"starred": action};
-    updateEntry($entry, data);
   });
   
   $('#feed-entry-list').on('click', '.entry-link', function() {
