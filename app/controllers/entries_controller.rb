@@ -1,9 +1,7 @@
-require 'entry_lister'
 class EntriesController < ApplicationController
   before_action :set_feed_and_entry, :except => [:fetch]
 
   def show
-    #@entry.update_attributes!(:read => true)
     render :layout => nil
   end
 

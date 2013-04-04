@@ -2,8 +2,13 @@ Morrwbah::Application.routes.draw do
 
   root :to => 'dashboard#index'
   
-  resources :dashboard, :only => :index
-  get 'fetchentries', :to => 'entries#fetch'
+  resources :dashboard, :only => :index do
+    collection do
+      get :feeds
+      get :entries
+    end
+  end
+
   resources :feeds do
     member do
       get :fetch
@@ -12,7 +17,7 @@ Morrwbah::Application.routes.draw do
     resources :entries, :only => [:show, :update]
   end
 
-  resources :folders, :only => [:show] do
+  resources :folders do
     collection do
       post :update_order, :constraints => {:format => /(json)/}
     end

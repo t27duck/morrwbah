@@ -2,8 +2,6 @@ class FeedsController < ApplicationController
   before_action :set_feed, only: [:edit, :update, :destroy, :fetch]
 
   def index
-    @folders = current_user.folders.order(:position)
-    render :layout => nil
   end
 
   def new
@@ -62,6 +60,6 @@ class FeedsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def feed_params
-    params.require(:feed).permit(:title, :url, :feed_url, :sanitize)
+    params.require(:feed).permit(:title, :url, :feed_url, :sanitize, :folder_id)
   end
 end

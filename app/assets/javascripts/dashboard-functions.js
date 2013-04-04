@@ -31,7 +31,7 @@
       type: type
     }
     $.ajax({
-      url: '/fetchentries', 
+      url: '/dashboard/entries', 
       data: data,
       type: 'GET',
       beforeSend: function() {
@@ -46,7 +46,7 @@
   }
 
   function refreashFeedList(type, active_id) {
-    $.get('feeds', function(data) {
+    $.get('/dashboard/feeds', function(data) {
       $('#feed-list').html(data);
       $('#feed-list .feed-title div').removeClass('selected');
       $('#feed-list .folder-title div').removeClass('selected');
