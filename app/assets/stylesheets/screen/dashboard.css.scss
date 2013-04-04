@@ -98,7 +98,8 @@
         .entry-bar {
           padding: 8px 5px;
         }
-        .entry-link {
+        .entry-link, .entry-time {
+          margin-left: 10px;
           float: right;
         }
         &.selected {

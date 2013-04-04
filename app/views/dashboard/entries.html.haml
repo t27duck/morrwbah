@@ -32,6 +32,11 @@
             -else
               =image_tag('silk/icons/star_gray.png', :size => '16x16')
           .entry-link=link_to image_tag('silk/icons/link.png', :size => '16x16'), entry.url, :target => '_blank'
+          .entry-time
+            -if Time.now.day == entry.published.day
+              =entry.published.strftime("%l:%M %p")
+            -else
+              =entry.published.strftime("%b %d")
           .title=entry.title.html_safe
         .clearboth
 
