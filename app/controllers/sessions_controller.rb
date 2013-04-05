@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  skip_before_action :require_user, :only => [:new, :create]
+
   def new
   end
   
@@ -12,7 +14,7 @@ class SessionsController < ApplicationController
       end
       redirect_to root_url, :notice => "Logged in!"
     else
-      flash.now.alert = "Invalid login or password"
+      flash.now.error = "Invalid login or password"
       render "new"
     end
   end

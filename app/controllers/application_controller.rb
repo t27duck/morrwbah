@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    return User.first
+    #return User.first
     @current_user ||= User.where(:auth_token => cookies[:auth_token]).first if cookies[:auth_token]
   end
   helper_method :current_user

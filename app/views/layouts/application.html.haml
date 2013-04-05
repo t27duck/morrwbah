@@ -15,4 +15,8 @@
         #logout=link_to image_tag("silk/icons/door_in.png", :size => "16x16", :title => "Logout"), logout_path, :data => { :confirm => "Are you sure out want to logout?" }
         #greeting= "Hello, #{current_user.login}"
   #wrapper
+    -[:notice, :error].each do |key|
+      -if flash[key]
+        #flash
+          %div{:id => key}=flash[key]
     = yield
