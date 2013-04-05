@@ -24,6 +24,7 @@ class EntryLister
       @title = "Starred Items"
       @entries = @user.entries.starred.order(:published => :desc)
       @filter = 'all'
+      @type = 'starred'
     else
       @feed = @user.feeds.find(identifier)
       @title = @feed.title

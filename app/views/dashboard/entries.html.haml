@@ -6,8 +6,15 @@
     =select_tag 'filter', options_for_select(filters, @lister.filter)
 
   #feed-title
-    -if @lister.feed
+    -case @lister.type
+    -when 'feed'
       =link_to image_tag('silk/icons/world_link.png', :size => '16x16'), @lister.feed.url, :target => '_blank'
+    -when 'folder'
+      =image_tag('silk/icons/folder.png', :size => '16x16')
+    -when 'starred'
+      =image_tag('silk/icons/star.png', :size => '16x16')
+    -else
+      =image_tag('default_feed_icon.png', :size => '16x16')
     =@lister.title
 
 #entry-list

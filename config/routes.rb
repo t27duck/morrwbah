@@ -2,8 +2,12 @@ Morrwbah::Application.routes.draw do
 
   root :to => 'dashboard#index'
   
+  get 'login', to: 'sessions#new', as: 'login'
+  get 'logout', to: 'sessions#destroy', as: 'logout'
+
   resources :dashboard, :only => :index do
     collection do
+      get :settings
       get :feeds
       get :entries
     end

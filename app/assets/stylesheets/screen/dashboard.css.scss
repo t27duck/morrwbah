@@ -6,6 +6,7 @@
     height: 21px;
     line-height: 21px;
     text-align: left;
+    margin-left: 10px;
     
     .mjs-nestedSortable-error {
       background: #fbe3e4;
@@ -69,6 +70,7 @@
       #feed-controls {
         #fetch-feed, #filter {
           float: right;
+          margin-right: 10px;
         }
         #fetch-feed {
           cursor: pointer;
@@ -93,13 +95,18 @@
         font-size: 85%;
         .read-status, .starred-status {
           float: left;
-          margin-right: 6px;
+          margin: 0 6px;
         }
         .entry-bar {
           padding: 8px 5px;
+          .title {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+          }
         }
         .entry-link, .entry-time {
-          margin-left: 10px;
+          margin: 0 10px;
           float: right;
         }
         &.selected {

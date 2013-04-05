@@ -1,5 +1,7 @@
 body {
   font-family: arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 .notice {
@@ -13,6 +15,25 @@ body {
   top: 0px;
   z-index: 10000;
   padding: 4px;
+}
+
+#navigation {
+  background-color: black;
+  color: white;
+  margin-bottom: 10px;
+  padding: 4px 4px 5px 4px;
+  a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  #user-section {
+    float: right;
+    #config, #logout, #greeting {
+      float: right;
+      margin-left: 10px;
+    }
+  }
 }
 
 #wrapper {
