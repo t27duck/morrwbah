@@ -1,0 +1,16 @@
+.container
+  %h1 Manage Users
+
+  %table
+    %thead
+      %tr
+        %th Login
+        %th.last Actions
+    %tbody
+      -@users.each do |user|
+        %tr{:class => cycle('odd', 'even')}
+          %td=user.login
+          %td.last
+            =link_to image_tag('silk/icons/pencil.png', :alt => "Edit"), edit_user_path(user)
+            =link_to image_tag('silk/icons/bin.png', :alt => "Delete"), user_path(user), :method => :delete, :data => { :confirm => "Are you sure?" }
+            

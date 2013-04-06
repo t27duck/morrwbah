@@ -1,0 +1,87 @@
+// http://apps.wittysparks.com/framework/simple_css_form.html
+.formarea {
+  background-color: #FFFFFF;
+  //width: 500px;
+  margin-top: 10px;
+  margin-right: auto;
+  margin-bottom: 10px;
+  margin-left: auto;
+  position: relative;
+  padding: 25px;
+  font-size: 12px;
+  div {
+    padding: 3px 0px;
+    clear:both;
+  }
+  div label {
+    position:relative;
+    display:block;
+    text-align:right;
+    margin: 0px 10px 0px 0px;
+    padding: 3px 10px 0px 0px;
+    width:150px;
+    cursor:pointer;
+    float:left;
+    line-height: 18px;
+  }  
+  div .labelsmall {
+    width:auto;
+  }
+  input, select, textarea {
+    float:left;
+    font-size: 12px;
+    padding:2px;
+    margin: 3px 5px 0px 0px;
+  }
+  input.error, select.error, textarea.error {
+    background-color: #FFDFDF;
+    border: 1px solid #FF0000;
+  }
+  input:hover, select:hover, textarea:hover {
+    background-color: #FFFF99
+  }
+  span.required {
+    color:#FF0000;
+  }
+  span.hint {
+    font-size: 10px;
+  }
+  span.note {
+    font-size: 11px;
+    display:block;
+    color:#666666;
+    float:left;
+  }
+  .buttonsarea {
+    margin: 10px 0px 0px 0px;
+    clear:both;
+  }
+  .buttonsarea input {
+    padding: 5px 10px;
+    border: 1px solid #999999;
+  }
+  .buttonsarea input:hover {
+    background-color:#FFEBD9;
+    border: 1px solid #000;
+  }
+  br {
+    clear:both;
+  }
+  .requiredfld {
+    float: right;
+  }
+  div.error {	
+    display:block;
+    padding: 10px 10px 10px 35px;
+    background-color: #FFDFDF;
+    margin-bottom: 10px;
+  }
+
+  div.information {	
+    display:block;
+    padding: 10px 10px 10px 35px;
+    background-color: #e0ebf6;
+    background-position: 5px 5px;
+    margin-bottom: 10px;
+  }
+}

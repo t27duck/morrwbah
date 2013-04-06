@@ -1,5 +1,5 @@
 body {
-  font-family: arial, sans-serif;
+  font-family:Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -41,7 +41,57 @@ body {
 }
 
 .container {
+  width: 500px;
+  border: 1px solid black;
+  margin-left: auto;
+  margin-right: auto;
+  h1 {
+    font-size: 120%;
+    margin-left: 8px;
+  }
+  table {
+    width: 460px;
+    margin: 4px auto;
+    tr {
+      &.even { background-color: #EBEBEB; }
+      &.odd { }
+      th {
+        text-align: left;
+      }
+      td, th {
+        &.last {
+          text-align: right;
+          padding-right: 4px;
+        }
+      }
+    }
+  }
+  .error_messages {
+    width: 450px;
+    border: 2px solid red;
+    padding: 7px;
+    padding-bottom: 0;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #f0f0f0;
+    h2 {
+      text-align: left;
+      font-weight: bold;
+      padding: 5px 5px 5px 15px;
+      font-size: 12px;
+      margin: -7px;
+      margin-bottom: 0px;
+      background-color: #c00;
+      color: #fff;
+    }
+    ul li {
+      font-size: 12px;
+      list-style: square;
+    }
+  }
 }
+
 
 .clearboth {
   clear: both;
