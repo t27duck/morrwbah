@@ -1,11 +1,19 @@
 require 'net/http'
 class Feed < ActiveRecord::Base
+  SANITATION_LEVELS = {
+    0 => 'none',
+    1 => 'relaxed',
+    2 => 'basic',
+    3 => 'restricted',
+    4 => 'full'
+  }
+
   belongs_to :user
   belongs_to :folder
 
   has_many :entries, :dependent => :delete_all
   
-  validates_presence_of :user, :title, :feed_url, :last_modified, :folder
+  validates_presence_of :user, :title, :feed_url, :last_modified, :folder, :sanitization_level
   
   before_create :set_icon
 
@@ -21,7 +29,6 @@ class Feed < ActiveRecord::Base
   def fetch!
     create_new_entries!
     self.last_checked = Time.now
-    set_info!
     save!
   end
 

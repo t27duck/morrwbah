@@ -80,6 +80,9 @@
           contentType: "application/json; charset=utf-8",
           dataType: "json",
         }).done(function(data, textStatus, jqXHR) {
+          $('.folder-title').each(function() {
+            calculateUnreadCountOnFolder($(this));
+          });
         }).fail(function(jqXHR, textStatus, errorThrown) {
         });
       }
@@ -89,27 +92,48 @@
   function updateUnreadCount(feed_id, direction) {
     var $feed_title = $('#feed-'+feed_id+'.feed-title');
     var $folder_title = $feed_title.closest('li.folder-title');
-    var $all_items = $('#all-items.feed-title');
     adjustUnreadCountOnElement($feed_title, direction);
-    adjustUnreadCountOnElement($folder_title, direction);
-    adjustUnreadCountOnElement($all_items, direction);
+    calculateUnreadCountOnFolder($folder_title);
+    calculateUnreadCountOnAllItems();
   }
 
-  function adjustUnreadCountOnElement($elm, direction) {
+ function adjustUnreadCountOnElement($elm, direction) {
     var current_unread = $elm.data('unread-count');
     var $div_handle = $('div:first', $elm);
     var $unread_count_span = $('span.unread-count:first', $elm);
-    var new_unread;
+    var new_unread = current_unread;
     if (direction === 'up') {
       new_unread = current_unread + 1;
-    } else {
+    } else if (direction == 'down'){
       new_unread = current_unread - 1;
     }
+    setElmUnreadCount($elm, new_unread);
+  }
 
-    $elm.data('unread-count', new_unread);
-    if (new_unread > 0) {
+  function calculateUnreadCountOnFolder($folder) {
+    var folder_total = 0;
+    $folder.find('.feed-title').each(function() {
+      folder_total = folder_total + $(this).data('unread-count');
+    });
+    setElmUnreadCount($folder, folder_total);
+  }
+
+  function calculateUnreadCountOnAllItems() {
+    var all_total = 0;
+    var $all_items = $('#all-items.feed-title');
+    $('.folder-title').each(function() {
+      all_total = all_total + $(this).data('unread-count');
+    });
+    setElmUnreadCount($all_items, all_total);
+  }
+
+  function setElmUnreadCount($elm, unread_count) {
+    var $div_handle = $('div:first', $elm);
+    var $unread_count_span = $('span.unread-count:first', $elm);
+    $elm.data('unread-count', unread_count);
+    if (unread_count > 0) {
       $div_handle.addClass('unread');
-      $unread_count_span.html('('+new_unread+')');
+      $unread_count_span.html('('+unread_count+')');
     } else {
       $div_handle.removeClass('unread');
       $unread_count_span.html('');

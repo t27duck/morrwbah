@@ -16,6 +16,9 @@ class DashboardController < ApplicationController
     render :layout => nil
   end
 
+  def settings
+  end
+
   private ######################################################################
 
   def get_folders

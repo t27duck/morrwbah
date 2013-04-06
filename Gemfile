@@ -19,6 +19,12 @@ end
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'haml-rails'
+gem 'feedzirra', :github => 't27duck/feedzirra', :branch => 'lite'
+gem 'bcrypt-ruby'
+gem 'sanitize'
+
+gem 'whenever'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 #gem 'turbolinks'
@@ -37,8 +43,3 @@ gem 'capistrano', group: :development
 
 # To use debugger
 # gem 'debugger'
-
-gem 'haml-rails'
-gem 'feedzirra', :github => 't27duck/feedzirra', :branch => 'lite'
-gem 'whenever'
-gem 'bcrypt-ruby'

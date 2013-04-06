@@ -1,7 +1,12 @@
 class FeedsController < ApplicationController
-  before_action :set_feed, only: [:edit, :update, :destroy, :fetch]
+  before_action :set_feed, only: [:show, :edit, :update, :destroy, :fetch]
 
   def index
+    @feeds = current_user.feeds.order(:position)
+  end
+
+  def show
+    redirect_to edit_feed_path(@feed)
   end
 
   def new
@@ -17,8 +22,8 @@ class FeedsController < ApplicationController
 
     respond_to do |format|
       if @feed.save
-        @feed.create_new_entries!
-        format.html { redirect_to @feed, notice: 'Feed was successfully created.' }
+        @feed.fetch!
+        format.html { redirect_to folders_path, notice: 'Feed was successfully created.' }
         format.json { render action: 'show', status: :created, location: @feed }
       else
         format.html { render action: 'new' }
@@ -30,7 +35,7 @@ class FeedsController < ApplicationController
   def update
     respond_to do |format|
       if @feed.update(feed_params)
-        format.html { redirect_to @feed, notice: 'Feed was successfully updated.' }
+        format.html { redirect_to folders_path, notice: 'Feed was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -60,6 +65,6 @@ class FeedsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def feed_params
-    params.require(:feed).permit(:title, :url, :feed_url, :sanitize, :folder_id)
+    params.require(:feed).permit(:title, :feed_url, :sanitization_level, :folder_id)
   end
 end

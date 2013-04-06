@@ -37,16 +37,16 @@ ActiveRecord::Schema.define(version: 20130319011444) do
   add_index "entries", ["user_id"], name: "index_entries_on_user_id"
 
   create_table "feeds", force: true do |t|
-    t.integer  "user_id",                      null: false
-    t.integer  "position",      default: 0,    null: false
-    t.integer  "folder_id",                    null: false
-    t.string   "title",                        null: false
+    t.integer  "user_id",                        null: false
+    t.integer  "position",           default: 0, null: false
+    t.integer  "folder_id",                      null: false
+    t.string   "title",                          null: false
     t.string   "url"
-    t.string   "feed_url",                     null: false
+    t.string   "feed_url",                       null: false
     t.string   "etag"
     t.string   "icon_path"
-    t.boolean  "sanitize",      default: true, null: false
-    t.datetime "last_modified",                null: false
+    t.integer  "sanitization_level", default: 1, null: false
+    t.datetime "last_modified",                  null: false
     t.datetime "last_checked"
     t.datetime "created_at"
     t.datetime "updated_at"
