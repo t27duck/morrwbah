@@ -1,3 +1,5 @@
+=link_to "#{image_tag('silk/icons/add.png', :size => '16x16')} Add Feed".html_safe, new_feed_path, :class => 'button'
+
 -unread_count = current_user.all_feeds_unread_count
 .feed-title#all-items{:data => {:id => 'all', :full_title => 'All Feeds', :unread_count => unread_count}}
   %div{ :class => (unread_count > 0 ? 'unread' : nil) }

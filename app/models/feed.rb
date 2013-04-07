@@ -13,9 +13,11 @@ class Feed < ActiveRecord::Base
 
   has_many :entries, :dependent => :delete_all
   
-  validates_presence_of :user, :title, :feed_url, :last_modified, :folder, :sanitization_level
+  validates_presence_of :user, :folder, :sanitization_level
   
-  before_create :set_icon
+  before_validation :set_icon, :set_info!, :if => lambda{ |model| model.new_record? }
+  after_create :fetch!
+  
 
   def set_info!
     if feed_object.respond_to?(:title)
@@ -23,6 +25,8 @@ class Feed < ActiveRecord::Base
       self.url           = feed_object.url
       self.etag          = feed_object.etag
       self.last_modified = feed_object.last_modified
+    else
+      self.errors.add(:base, 'Unable to parse feed')
     end
   end
 
@@ -58,6 +62,9 @@ class Feed < ActiveRecord::Base
         })
       end
     end
+  rescue
+    self.errors.add(:base, 'There was an error parsing entries in this feed')
+    raise
   end
 
   def set_icon
@@ -80,21 +87,19 @@ class Feed < ActiveRecord::Base
       favicon_url = "http://#{host}/favicon.ico"
     end
  
-    begin
-      uri = URI.parse(favicon_url)
-      response = nil
-      http = Net::HTTP.new uri.host, uri.port
-      if use_ssl
-        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-        http.use_ssl = true
-      end
-      http.start{|http|
-        response = http.head(uri.path)
-      }
-      response.code == "200" ? favicon_url : nil
-    rescue
-      nil
+    uri = URI.parse(favicon_url)
+    response = nil
+    http = Net::HTTP.new uri.host, uri.port
+    if use_ssl
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      http.use_ssl = true
     end
+    http.start{|http|
+      response = http.head(uri.path)
+    }
+    response.code == "200" ? favicon_url : nil
+  rescue
+    nil
   end
 
 end

@@ -102,3 +102,21 @@ body {
 .hidden {
   display: none;
 }
+
+.button {
+  padding: 4px 8px;
+  margin: 4px;
+  text-align: left;
+  cursor: pointer;
+  border: 1px solid #999999;
+  border-radius: 5px;
+  background-color: #666666;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  width: 120px;
+  display: block;
+  img {
+    vertial-align: middle;
+  }
+}

@@ -14,10 +14,7 @@ class FeedsController < ApplicationController
 
   def create
     @feed = current_user.feeds.new(feed_params)
-    @feed.set_info!
-
     if @feed.save
-      @feed.fetch!
       redirect_to settings_dashboard_index_path, notice: 'Feed was successfully created.'
     else
       render action: 'new'
