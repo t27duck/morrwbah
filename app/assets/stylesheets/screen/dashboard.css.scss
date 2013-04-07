@@ -145,4 +145,10 @@
       overflow-y: scroll;
     }
   }
+
+  .buttons {
+    .button {
+      float: left;
+    }
+  }
 }

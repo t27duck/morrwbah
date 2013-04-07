@@ -17,6 +17,7 @@ class DashboardController < ApplicationController
   end
 
   def settings
+    @users = User.all
   end
 
   private ######################################################################

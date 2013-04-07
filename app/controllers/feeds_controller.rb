@@ -1,6 +1,10 @@
 class FeedsController < ApplicationController
   before_action :set_feed, only: [:show, :edit, :update, :destroy, :fetch]
 
+  def index
+    redirect_to settings_dashboard_index_path
+  end
+
   def show
     redirect_to edit_feed_path(@feed)
   end

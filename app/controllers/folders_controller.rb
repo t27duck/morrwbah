@@ -4,7 +4,7 @@ class FoldersController < ApplicationController
   before_action :set_folder, :only => [:show, :edit, :update, :destroy]
 
   def index
-    @folders = current_user.folders.order(:position)
+    redirect_to settings_dashboard_index_path
   end
 
   def show

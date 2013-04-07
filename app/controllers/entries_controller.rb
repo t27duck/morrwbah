@@ -16,7 +16,7 @@ class EntriesController < ApplicationController
   private ######################################################################
 
   def set_feed_and_entry
-    @feed = Feed.find(params[:feed_id])
+    @feed = current_user.feeds.find(params[:feed_id])
     @entry = @feed.entries.find(params[:id])
   end
 
