@@ -1,7 +1,7 @@
 require 'entry_lister'
 class DashboardController < ApplicationController
   before_action :require_user
-  before_action :get_folders, :only  => [:index, :feeds]
+  before_action :get_folders, :only  => [:index, :feeds, :settings]
 
   def index
   end

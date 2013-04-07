@@ -16,7 +16,7 @@ Morrwbah::Application.routes.draw do
     end
   end
 
-  resources :feeds do
+  resources :feeds, :except => [:index] do
     member do
       get :fetch
     end

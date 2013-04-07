@@ -18,7 +18,7 @@ class FoldersController < ApplicationController
   def create
     @folder = current_user.folders.new(folder_params)
     if @folder.save
-      redirect_to folders_path, :notice => "Folder created"
+      redirect_to settings_dashboard_index_path, :notice => "Folder created"
     else
       render 'new'
     end
@@ -29,7 +29,7 @@ class FoldersController < ApplicationController
 
   def update
     if @folder.update_attributes(folder_params)
-      redirect_to folders_path, :notice => "Folder created"
+      redirect_to settings_dashboard_index_path, :notice => "Folder created"
     else
       render 'edit'
     end
@@ -37,7 +37,7 @@ class FoldersController < ApplicationController
 
   def destroy
     @folder.destroy
-    redirect_to folders_path, :notice => "Folder and subscriptions deleted"
+    redirect_to settings_dashboard_index_path, :notice => "Folder and subscriptions deleted"
   end
 
   # JSON request only

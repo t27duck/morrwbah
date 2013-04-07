@@ -1,10 +1,6 @@
 class FeedsController < ApplicationController
   before_action :set_feed, only: [:show, :edit, :update, :destroy, :fetch]
 
-  def index
-    @feeds = current_user.feeds.order(:position)
-  end
-
   def show
     redirect_to edit_feed_path(@feed)
   end
@@ -20,36 +16,25 @@ class FeedsController < ApplicationController
     @feed = current_user.feeds.new(feed_params)
     @feed.set_info!
 
-    respond_to do |format|
-      if @feed.save
-        @feed.fetch!
-        format.html { redirect_to folders_path, notice: 'Feed was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @feed }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @feed.errors, status: :unprocessable_entity }
-      end
+    if @feed.save
+      @feed.fetch!
+      redirect_to settings_dashboard_index_path, notice: 'Feed was successfully created.'
+    else
+      render action: 'new'
     end
   end
 
   def update
-    respond_to do |format|
-      if @feed.update(feed_params)
-        format.html { redirect_to folders_path, notice: 'Feed was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @feed.errors, status: :unprocessable_entity }
-      end
+    if @feed.update(feed_params)
+      redirect_to settings_dashboard_index_path, notice: 'Feed was successfully updated.'
+    else
+      render action: 'edit'
     end
   end
 
   def destroy
     @feed.destroy
-    respond_to do |format|
-      format.html { redirect_to feeds_url }
-      format.json { head :no_content }
-    end
+    redirect_to settings_dashbaord_path
   end
 
   def fetch
