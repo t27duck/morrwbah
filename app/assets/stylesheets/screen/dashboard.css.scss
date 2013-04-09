@@ -1,7 +1,7 @@
 #dashboard {
   #feed-list {
     float: left;
-    overflow-y: scroll;
+    overflow-y: auto;
     width: 250px; 
     font-size: 13px;
     height: 21px;
@@ -80,7 +80,7 @@
     }
 
     #entry-list {
-      overflow-y: scroll;
+      overflow-y: auto;
       margin-bottom: 5px;
       height: 120px;
       border-left: 1px solid #DDDDDD;

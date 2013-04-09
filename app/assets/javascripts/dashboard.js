@@ -121,7 +121,9 @@ $(document).ready(function() {
   });
 
   $(window).resize(function() {
-    $('#feed-list').height($(window).height() - $('#feed-list').offset().top - 5);
+    if ($('#feed-list').size() > 0) {
+      $('#feed-list').height($(window).height() - $('#feed-list').offset().top - 5);
+    }
     if ($('#entry-list').size() > 0) {
       $('#entry-list').height($(window).height() - $('#entry-list').offset().top - 15);
     }

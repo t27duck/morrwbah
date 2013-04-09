@@ -4,6 +4,13 @@
     %title My Own RSS Reader
     = stylesheet_link_tag    "application-screen", media: "screen"
     = javascript_include_tag "application"
+    :javascript
+      $(document).ready(function() {
+        var $flash_notice = $('#flash-notice');
+        if ($flash_notice.html() != '') {
+          $flash_notice.show().delay(5000).fadeOut(1000);
+        }
+      });
     = csrf_meta_tags
 %body{:id => controller.controller_name}
   #loading-notice.notice.hidden Loading...
@@ -18,8 +25,4 @@
         #logout=link_to image_tag("silk/icons/door_in.png", :size => "16x16", :title => "Logout"), logout_path, :data => { :confirm => "Are you sure out want to logout?" }
         #greeting="Hello, #{current_user.login}"
   #wrapper
-    -[:notice, :error].each do |key|
-      -if flash[key]
-        #flash
-          %div{:id => key}=flash[key]
     = yield

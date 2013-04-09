@@ -35,7 +35,7 @@ class FeedsController < ApplicationController
 
   def destroy
     @feed.destroy
-    redirect_to settings_dashbaord_path
+    redirect_to settings_dashbaord_index_path
   end
 
   def fetch
