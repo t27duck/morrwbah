@@ -2,9 +2,9 @@
   %h1 Settings
 
   .buttons
-    =link_to "#{image_tag('silk/icons/add.png', :size => '16x16')} Add Folder".html_safe, new_folder_path, :class => 'button'
-    =link_to "#{image_tag('silk/icons/add.png', :size => '16x16')} Add Feed".html_safe, new_feed_path, :class => 'button'
-    =link_to "#{image_tag('silk/icons/add.png', :size => '16x16')} Add User".html_safe, new_user_path, :class => 'button'
+    =link_to image_tag('silk/icons/feed_add.png', :size => '16x16', :alt => "Add Feed"), new_feed_path
+    =link_to image_tag('silk/icons/folder_add.png', :size => '16x16', :alt => 'New Folder'), new_folder_path
+    =link_to image_tag('silk/icons/user_add.png', :size => '16x16', :alt => "Add User"), new_user_path
 
   %table
     %thead

@@ -7,6 +7,8 @@
     = csrf_meta_tags
 %body{:id => controller.controller_name}
   #loading-notice.notice.hidden Loading...
+  - flash_var = flash[:notice] || flash[:error] || nil
+  #flash-notice.notice.hidden=flash_var
   #navigation
     = link_to "My Own RSS Reader", root_path
     -if current_user

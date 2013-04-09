@@ -1,7 +1,8 @@
 #dashboard {
   #feed-list {
     float: left;
-    width: 250px;    
+    overflow-y: scroll;
+    width: 250px; 
     font-size: 13px;
     height: 21px;
     line-height: 21px;
@@ -51,7 +52,7 @@
     }
 
     .feed-title {
-      margin-top: 4px;
+      margin-top: 8px;
     }
     .folder-title {
       margin-top: 10px;
@@ -147,8 +148,8 @@
   }
 
   .buttons {
-    .button {
-      float: left;
+    a {
+      margin: 4px 8px;
     }
   }
 }
