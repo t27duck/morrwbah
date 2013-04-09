@@ -1,5 +1,3 @@
-#new-feed=link_to "Add Feed", new_feed_path, :class => 'button'
-
 -unread_count = current_user.all_feeds_unread_count
 .feed-title#all-items{:data => {:id => 'all', :full_title => 'All Feeds', :unread_count => unread_count}}
   %div{ :class => (unread_count > 0 ? 'unread' : nil) }

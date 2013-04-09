@@ -14,8 +14,9 @@
     -if current_user
       #user-section
         #config=link_to image_tag("silk/icons/cog.png", :size => "16x16", :title => "Settings"), settings_dashboard_index_path
+        #add-feed=link_to image_tag("silk/icons/feed_add.png", :size => "16x16", :title => "Add Feed"), new_feed_path
         #logout=link_to image_tag("silk/icons/door_in.png", :size => "16x16", :title => "Logout"), logout_path, :data => { :confirm => "Are you sure out want to logout?" }
-        #greeting= "Hello, #{current_user.login}"
+        #greeting="Hello, #{current_user.login}"
   #wrapper
     -[:notice, :error].each do |key|
       -if flash[key]
