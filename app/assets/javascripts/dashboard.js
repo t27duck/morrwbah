@@ -15,6 +15,12 @@ $(document).ready(function() {
     selectNextEntry('prev');
   });
 
+  $(document).bind('keyup', 'v', function(e) {
+    if ($('.entry.selected').size() === 1) {
+      window.open($('.entry-content .entry-title a', $entry).attr('href'));
+    }
+  });
+
   $('#feed-list').on('click', '.folder-title>div, .feed-title>div', function() {
     var id = $(this).parent().data('id');
     var type = $(this).parent().data('type');
