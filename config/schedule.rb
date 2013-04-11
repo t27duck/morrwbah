@@ -20,5 +20,5 @@
 # Learn more: http://github.com/javan/whenever
 
 every 20.minutes do
-  rake feeds:fetch
+  rake "feeds:fetch"
 end
