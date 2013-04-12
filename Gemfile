@@ -13,9 +13,6 @@ gem 'pg'      # POSTGRESQL
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  # TODO Get rid of this when things are fixed upstream
-  gem 'sprockets-rails', :github => 'rails/sprockets-rails'
-
   gem 'sass-rails',   '~> 4.0.0.beta1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
