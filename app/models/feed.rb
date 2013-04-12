@@ -15,7 +15,7 @@ class Feed < ActiveRecord::Base
   
   validates_presence_of :user, :folder, :sanitization_level
   
-  before_validation :set_icon, :set_info!, :if => lambda{ |model| model.new_record? }
+  before_validation :set_info!, :set_icon, :if => lambda{ |model| model.new_record? }
   after_create :fetch!
   
 
