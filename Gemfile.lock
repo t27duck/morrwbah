@@ -1,4 +1,16 @@
 GIT
+  remote: git://github.com/jimryan/capistrano.git
+  revision: d318828c5706e0cc6b5f6c71bb7a65e3ffabb4b3
+  branch: support-json-manifest
+  specs:
+    capistrano (2.14.2)
+      highline
+      net-scp (>= 1.0.0)
+      net-sftp (>= 2.0.0)
+      net-ssh (>= 2.0.14)
+      net-ssh-gateway (>= 1.1.0)
+
+GIT
   remote: git://github.com/t27duck/feedzirra.git
   revision: 1ea1e2e477e43eb2038355878926d28de01939a1
   branch: lite
@@ -39,12 +51,6 @@ GEM
     atomic (1.1.6)
     bcrypt-ruby (3.0.1)
     builder (3.1.4)
-    capistrano (2.14.2)
-      highline
-      net-scp (>= 1.0.0)
-      net-sftp (>= 2.0.0)
-      net-ssh (>= 2.0.14)
-      net-ssh-gateway (>= 1.1.0)
     chronic (0.9.1)
     curb (0.8.3)
     erubis (2.7.0)
@@ -80,7 +86,7 @@ GEM
       net-ssh (>= 2.6.5)
     net-sftp (2.1.1)
       net-ssh (>= 2.6.5)
-    net-ssh (2.6.6)
+    net-ssh (2.6.7)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
     nokogiri (1.5.9)
@@ -154,7 +160,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt-ruby
-  capistrano
+  capistrano!
   feedzirra!
   haml-rails
   jquery-rails
