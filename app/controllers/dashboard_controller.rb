@@ -7,13 +7,13 @@ class DashboardController < ApplicationController
   end
 
   def feeds
-    render :layout => nil
+    render :layout => nil unless mobile_device?
   end
 
   def entries
     @lister = EntryLister.new(current_user, params[:type], params[:filter], params[:id])
     @lister.generate
-    render :layout => nil
+    render :layout => nil unless mobile_device?
   end
 
   def settings

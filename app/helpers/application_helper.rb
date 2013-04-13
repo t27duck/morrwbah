@@ -13,4 +13,10 @@ module ApplicationHelper
     end
     html.html_safe
   end
+
+  def jquery_mobile_url
+    url = "/#{controller.controller_name}"
+    url += "/#{controller.action_name}" if controller.action_name != 'index'
+    url
+  end
 end

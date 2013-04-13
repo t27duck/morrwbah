@@ -22,11 +22,13 @@
     #no-entries
       ="No #{['unread','starred'].include?(@lister.filter) ? @lister.filter : nil} entries found for #{@lister.title}"
   -else
-    -@lister.entries.each do |entry|
+    -@lister.entries.each_with_index do |entry, i|
+      -page = i + 1
       -classes = []
       -classes << (entry.read ? 'read' : 'unread')
       -classes << (entry.starred ? 'starred' : 'unstarred')
-      .entry{:class => classes.join(' '), :data => {:id => entry.id, :feed_id => entry.feed_id}}
+      -entry_data = {:id => entry.id, :feed_id => entry.feed_id, :identifier => @lister.identifier, :filter => @lister.filter, :type => @lister.type, :page => page}
+      .entry{:class => classes.join(' '), :data => entry_data}
         .entry-bar
           .read-status
             -if entry.read

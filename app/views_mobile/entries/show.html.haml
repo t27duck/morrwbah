@@ -1,0 +1,16 @@
+-@page_data_attributes = {:role => 'page', :theme => 'a', :url => request.url }.merge(@page_data_attributes || {})
+.entry-view{:data => @page_data_attributes, :id => "entry-#{@lister.entry.id}"}
+  %div{:data => { :role => 'header', :position=>"fixed" }}
+    .control.ui-btn-left{:data => { :role=>"controlgroup", :type=>"horizontal", :mini=>"true"}}
+      %a.prev{:href=>"#", :data => {:role=>"button", :icon=>"arrow-l", :iconpos=>"notext"}} Previous
+      %a.next{:href=>"#", :data => {:role=>"button", :icon=>"arrow-r", :iconpos=>"notext"}} Next
+    %h1=@lister.title
+
+  %div{:data => { :role => 'content', :theme=>'c' }}
+    .entry-title=link_to @lister.entry.title.html_safe, @lister.entry.url, :target => '_blank'
+    .entry-meta
+      ="by #{@lister.entry.author}" if @lister.entry.author
+      ="#{time_ago_in_words(@lister.entry.published)} ago"
+
+    .entry-body=@lister.entry.body.html_safe
+    .clearboth 

@@ -1,0 +1,18 @@
+-@page_data_attributes = {:role => 'page', :theme => 'a', :url => request.url }.merge(@page_data_attributes || {})
+%div{:data => @page_data_attributes}
+  %div{:data => { :role => 'header', :position=>"fixed" }}
+    %h1=@lister.title
+
+  %div{:data => { :role => 'content' }}
+    -if @lister.entries.blank?
+      #no-entries
+        ="No #{['unread','starred'].include?(@lister.filter) ? @lister.filter : nil} entries found for #{@lister.title}"
+    -else
+      %ul{:data => { :role=>"listview", :count_theme=>"c", :inset=>"true"}}
+        -@lister.entries.each_with_index do |entry, i|
+          -page = i + 1
+          -classes = []
+          -classes << (entry.read ? 'read' : 'unread')
+          -classes << (entry.starred ? 'starred' : 'unstarred')
+          %li.entry{:class => classes.join(' '), :data => {:id => entry.id, :feed_id => entry.feed_id}}
+            =link_to entry.title.html_safe, entry_with_options_path(@lister.identifier, @lister.filter, @lister.type, page)

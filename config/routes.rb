@@ -8,6 +8,7 @@ Morrwbah::Application.routes.draw do
 
   resources :users
 
+  get 'dashboard/entries/:id/:filter/:type', :to => "dashboard#entries", :as => :entries_from_dashboard
   resources :dashboard, :only => :index do
     collection do
       get :settings
@@ -23,6 +24,9 @@ Morrwbah::Application.routes.draw do
 
     resources :entries, :only => [:show, :update]
   end
+
+  get 'entries/:id/:filter/:type/:page', :to => 'entries#show', :as => :entry_with_options
+  resources :entries, :only => [:show, :update]
 
   resources :folders do
     collection do

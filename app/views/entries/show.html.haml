@@ -1,8 +1,8 @@
-.entry-title=link_to @entry.title.html_safe, @entry.url, :target => '_blank'
+.entry-title=link_to @lister.entry.title.html_safe, @lister.entry.url, :target => '_blank'
 .entry-meta
-  ="by #{@entry.author}" if @entry.author
-  ="#{time_ago_in_words(@entry.published)} ago"
+  ="by #{@lister.entry.author}" if @lister.entry.author
+  ="#{time_ago_in_words(@lister.entry.published)} ago"
 
-.entry-body=@entry.body.html_safe
+.entry-body=@lister.entry.body.html_safe
 
 .clearboth

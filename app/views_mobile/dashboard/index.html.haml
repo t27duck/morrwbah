@@ -1,0 +1,29 @@
+-@page_data_attributes = {:role => 'page', :theme => 'a', :url => request.url }.merge(@page_data_attributes || {})
+%div{:data => @page_data_attributes}
+  %div{:data => { :role => 'header', :position=>"fixed" }}
+    %h1 My Own RSS Reader
+
+  %div{:data => { :role => 'content' }}
+    %ul{:data => { :role=>"listview", :count_theme=>"c", :inset=>"true"}}
+      %li
+        -unread_count = current_user.all_feeds_unread_count
+        %a{:href => entries_from_dashboard_path(:id => 'all', :filter => 'unread', :type => 'all')}
+          All Feeds
+          %span.ui-li-count=unread_count
+      %li
+        -starred_count = current_user.starred_count
+        %a{:href => entries_from_dashboard_path(:id => 'starred', :filter => 'all', :type => 'starred')}
+          Starred
+          %span.ui-li-count=starred_count
+      -@folders.each do |folder|
+        %li.folder
+          %a{:href => entries_from_dashboard_path(:id => folder.id, :filter => 'unread', :type => 'folder')}
+            =folder.name
+            %span.ui-li-count=folder.unread_count
+        -folder.feeds.each do |feed|
+          %li.feed
+            %a{:href => entries_from_dashboard_path(:id => feed.id, :filter => 'unread', :type => 'feed')}
+              %div
+                =feed.title
+                %span.ui-li-count=feed.unread_count
+

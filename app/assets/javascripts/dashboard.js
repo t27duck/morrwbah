@@ -17,7 +17,7 @@ $(document).ready(function() {
 
   $(document).bind('keyup', 'v', function(e) {
     if ($('.entry.selected').size() === 1) {
-      window.open($('.entry-content .entry-title a', $entry).attr('href'));
+      window.open($('.entry-content .entry-title a', $('.entry.selected')).attr('href'));
     }
   });
 
@@ -46,12 +46,17 @@ $(document).ready(function() {
     var $entry = $(this).parent().parent();
     var feed_id = $entry.data('feed-id');
     var entry_id = $entry.data('id');
+    var identifier = $entry.data('identifier');
+    var filter = $entry.data('filter');
+    var type = $entry.data('type');
+    var page = $entry.data('page');
+
     $('#entry-list .entry .entry-content').remove();
     if (!$entry.hasClass('selected')) {
       $('#entry-list .entry').removeClass('selected');
       $entry.addClass('selected');
       $.ajax({
-        url: '/feeds/'+feed_id+'/entries/'+entry_id, 
+        url: '/entries/'+identifier+'/'+filter+'/'+type+'/'+page, 
         type: 'GET', 
         cache: false,
         async: false,

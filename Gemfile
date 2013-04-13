@@ -27,7 +27,7 @@ gem 'haml-rails'
 gem 'feedzirra', :github => 't27duck/feedzirra', :branch => 'lite'
 gem 'bcrypt-ruby'
 gem 'sanitize'
-
+gem 'will_paginate'
 
 # The following gems are optional, depending on your configuration.
 # Comment them out if you do now want to use them.

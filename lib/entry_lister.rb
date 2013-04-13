@@ -1,22 +1,21 @@
 class EntryLister
-  attr_reader :entries, :title, :type, :identifier, :filter, :feed
+  attr_reader :entries, :title, :type, :identifier, :filter, :feed, :page
+  attr_reader :entry, :prev, :next
 
-  def initialize(user, type, filter, identifier)
+  def initialize(user, type, filter, identifier, page=0)
     @user = user
     @type = type
     @filter = filter
     @identifier = identifier
+    @page = page.to_i
   end
 
   def generate
-    type == 'folder' ? generate_from_folder : generate_from_feed
-    apply_filter
-  end
-
-  private ######################################################################
-
-  def generate_from_feed
-    case @identifier.to_s
+    case type
+    when 'folder'
+      folder = @user.folders.find(identifier)
+      @title = folder.name
+      @entries = @user.entries.joins(:feed).where(:feeds => {:folder_id => folder.id}).order(:published => :desc)
     when 'all'
       @title = "All Items"
       @entries = @user.entries.order(:published => :desc)
@@ -25,20 +24,26 @@ class EntryLister
       @entries = @user.entries.starred.order(:published => :desc)
       @filter = 'all'
       @type = 'starred'
-    else
+    when 'feed'
       @feed = @user.feeds.find(identifier)
       @title = @feed.title
       @entries = @feed.entries.order(:published => :desc)
     end
+    apply_filter
+    apply_pagination
   end
 
-  def generate_from_folder
-    folder = @user.folders.find(identifier)
-    @title = folder.name
-    @entries = @user.entries.joins(:feed).where(:feeds => {:folder_id => folder.id}).order(:published => :desc)
-  end
+  private ######################################################################
 
   def apply_filter
     @entries = entries.send(@filter) if ['unread','starred'].include?(@filter)
+  end
+
+  def apply_pagination
+    if page > 0
+      @entry = @entries.page(page).per_page(1).first
+      @prev = @entries.page(page-1).per_page(1).first unless page - 1 == 0
+      @next = @entries.page(page+1).per_page(1).first if @page + 1 < @entries.count
+    end
   end
 end
