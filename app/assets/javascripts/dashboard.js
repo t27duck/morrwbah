@@ -17,7 +17,7 @@ $(document).ready(function() {
 
   $(document).bind('keyup', 'v', function(e) {
     if ($('.entry.selected').size() === 1) {
-      window.open($('.entry-content .entry-title a', $entry).attr('href'));
+      window.open($('.entry-content .entry-title a', $('.entry.selected')).attr('href'));
     }
   });
 
