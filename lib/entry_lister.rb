@@ -9,14 +9,7 @@ class EntryLister
   end
 
   def generate
-    type == 'folder' ? generate_from_folder : generate_from_feed
-    apply_filter
-  end
-
-  private ######################################################################
-
-  def generate_from_feed
-    case @identifier.to_s
+    case @type
     when 'all'
       @title = "All Items"
       @entries = @user.entries.order(:published => :desc)
@@ -25,19 +18,20 @@ class EntryLister
       @entries = @user.entries.starred.order(:published => :desc)
       @filter = 'all'
       @type = 'starred'
+    when 'folder'
+      folder = @user.folders.find(identifier)
+      @title = folder.name
+      @entries = @user.entries.joins(:feed).where(:feeds => {:folder_id => folder.id}).order(:published => :desc)
     else
       @feed = @user.feeds.find(identifier)
       @title = @feed.title
       @entries = @feed.entries.order(:published => :desc)
     end
+    apply_filter
   end
 
-  def generate_from_folder
-    folder = @user.folders.find(identifier)
-    @title = folder.name
-    @entries = @user.entries.joins(:feed).where(:feeds => {:folder_id => folder.id}).order(:published => :desc)
-  end
-
+  private ######################################################################
+  
   def apply_filter
     @entries = entries.send(@filter) if ['unread','starred'].include?(@filter)
   end

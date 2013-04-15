@@ -44,14 +44,13 @@ $(document).ready(function() {
   // A feed entry is selected
   $('#feed-entry-list').on('click', '.title', function() {
     var $entry = $(this).parent().parent();
-    var feed_id = $entry.data('feed-id');
     var entry_id = $entry.data('id');
     $('#entry-list .entry .entry-content').remove();
     if (!$entry.hasClass('selected')) {
       $('#entry-list .entry').removeClass('selected');
       $entry.addClass('selected');
       $.ajax({
-        url: '/feeds/'+feed_id+'/entries/'+entry_id, 
+        url: 'entries/'+entry_id, 
         type: 'GET', 
         cache: false,
         async: false,

@@ -142,10 +142,9 @@ function setElmUnreadCount($elm, unread_count) {
 
 function updateEntry($entry, data) {
   var params = {'_method': 'put', 'entry': data};
-  var feed_id = $entry.data('feed-id');
   var entry_id = $entry.data('id');
   $.ajax({
-    url: '/feeds/'+feed_id+'/entries/'+entry_id, 
+    url: '/entries/'+entry_id, 
     type: 'POST', 
     data: params
   }).done(function() { });

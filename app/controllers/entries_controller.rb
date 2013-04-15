@@ -1,5 +1,5 @@
 class EntriesController < ApplicationController
-  before_action :set_feed_and_entry, :except => [:fetch]
+  before_action :set_feed_and_entry
 
   def show
     render :layout => nil
@@ -16,8 +16,7 @@ class EntriesController < ApplicationController
   private ######################################################################
 
   def set_feed_and_entry
-    @feed = current_user.feeds.find(params[:feed_id])
-    @entry = @feed.entries.find(params[:id])
+    @entry = current_user.entries.find(params[:id])
   end
 
   def entry_params

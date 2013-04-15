@@ -20,9 +20,9 @@ Morrwbah::Application.routes.draw do
     member do
       get :fetch
     end
-
-    resources :entries, :only => [:show, :update]
   end
+  
+  resources :entries, :only => [:show, :update]
 
   resources :folders do
     collection do

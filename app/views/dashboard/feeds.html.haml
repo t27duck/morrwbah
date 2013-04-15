@@ -1,12 +1,12 @@
 -unread_count = current_user.all_feeds_unread_count
-.feed-title#all-items{:data => {:id => 'all', :full_title => 'All Feeds', :unread_count => unread_count}}
+.feed-title#all-items{:data => {:id => 'all', :full_title => 'All Feeds', :unread_count => unread_count, :type => 'all'}}
   %div{ :class => (unread_count > 0 ? 'unread' : nil) }
     =image_tag('default_feed_icon.png', :size => '16x16')
     All Feeds
     %span.unread-count
       ="(#{unread_count})" if unread_count > 0
 
-.feed-title{:data => {:id => 'starred', :full_title => 'Starred'}}
+.feed-title{:data => {:id => 'starred', :full_title => 'Starred', :type => 'starred'}}
   %div
     =image_tag('silk/icons/star.png', :size => '16x16')
     Starred
