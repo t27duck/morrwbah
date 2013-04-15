@@ -30,3 +30,5 @@ rerun.txt
 pickle-email-*.html
 
 /config/deploy.rb
+/config/unicorn.rb
+start_unicorn
