@@ -1,0 +1,23 @@
+= jquery_mobile_page(:id => "settings") do
+  = jquery_mobile_header do
+    = jquery_mobile_back_button dashboard_index_path
+    %h1 My Own RSS Reader
+
+  = jquery_mobile_content do
+    %h2 User Accounts
+    = link_to "New User", new_user_path, :data => {:role=>'button', :icon=>"plus"}
+    %ul{:data => { :role=>"listview", :inset=>"true"}}
+      -@users.each do |user|
+        %li=link_to user.login, edit_user_path(user)
+
+   
+    %h2 Feeds / Folders
+    = link_to "New Folder", new_folder_path, :data => {:role=>'button', :icon=>"plus"}
+    = link_to "New Feed", new_feed_path, :data => {:role=>'button', :icon=>"plus"}
+    %ul{:data => { :role=>"listview", :inset=>"true"}}
+      -@folders.each do |folder|
+        %li
+          =link_to "#{image_tag('silk/icons/folder.png',:size=>'16x16', :class=>'ui-li-icon')} #{folder.name}".html_safe, edit_folder_path(folder)
+        -folder.feeds.each do |feed|
+          %li
+            =link_to "&nbsp;&nbsp;&nbsp;#{image_tag('default_feed_icon.png',:size=>'16x16', :class=>'ui-li-icon')} #{feed.title}".html_safe, edit_feed_path(feed)

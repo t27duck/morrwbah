@@ -1,0 +1,8 @@
+=jquery_mobile_page(:id => "edit-folder") do
+  = jquery_mobile_header do
+    = jquery_mobile_back_button settings_dashboard_index_path
+    %h1=@folder.name
+  
+  = jquery_mobile_content do
+    = link_to "Delete", folder_path(@folder), :method=>"delete", :data => {:role=>'button', :icon=>"delete", :confirm => "Are you sure?"}
+    = render :partial => "form"

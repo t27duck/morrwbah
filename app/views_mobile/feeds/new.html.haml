@@ -1,0 +1,7 @@
+=jquery_mobile_page(:id => "new-feed") do
+  = jquery_mobile_header do
+    = jquery_mobile_back_button settings_dashboard_index_path
+    %h1 New Feed
+  
+  = jquery_mobile_content do
+    = render :partial => "form"

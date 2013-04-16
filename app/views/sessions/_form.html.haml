@@ -1,0 +1,15 @@
+= form_tag sessions_path, :class => "formarea" do
+  %div
+    = label_tag :login
+    = text_field_tag :login, params[:login]
+  %div
+    = label_tag :password
+    = password_field_tag :password
+  %div
+    %label.padding &nbsp;
+    %label.labelsmall{:for => 'remember_me'}
+      = check_box_tag :remember_me
+      Remember me
+  %div
+    %label.padding &nbsp;
+    = submit_tag "Log In"

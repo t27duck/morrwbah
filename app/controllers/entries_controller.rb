@@ -1,7 +1,12 @@
 class EntriesController < ApplicationController
-  before_action :set_feed_and_entry
+  before_action :set_feed_and_entry, :except => :index
+
+  def index
+    redirect_to dashboard_index_path
+  end
 
   def show
+    @entry.update_attributes!(:read => true) if params[:mark_read]
     render :layout => nil
   end
 
@@ -17,6 +22,7 @@ class EntriesController < ApplicationController
 
   def set_feed_and_entry
     @entry = current_user.entries.find(params[:id])
+    @feed = @entry.feed
   end
 
   def entry_params

@@ -1,0 +1,34 @@
+= jquery_mobile_page(:id => "feed-list") do
+  = jquery_mobile_header do
+    %h1 My Own RSS Reader
+    .ui-btn-left=link_to "Logout", logout_path, :data=>{:role => 'button', :confirm => "Are you sure you want to logout?"}
+    .control.ui-btn-right{:data => { :role=>"controlgroup", :type=>"horizontal", :mini=>"true"}}
+      %a{:href=>"/dashboard/settings", :data => { :role=>"button", :icon=>"gear", :iconpos=>"notext"}} Settings
+
+  = jquery_mobile_content do
+    %ul{:data => { :role=>"listview", :count_theme=>"c", :inset=>"true"}}
+      %li
+        -unread_count = current_user.all_feeds_unread_count
+        %a{:href => entries_dashboard_index_path(:id => 'all', :type => 'all', :filter => 'unread')}
+          All Feeds
+          -if unread_count > 0
+            %span.ui-li-count=unread_count
+      %li
+        -starred_count = current_user.starred_count
+        %a{:href => entries_dashboard_index_path(:id => 'starred', :type => 'starred', :filter => 'all')}
+          Starred
+          -if unread_count > 0
+            %span.ui-li-count=starred_count
+      -@folders.each do |folder|
+        %li.folder
+          %a{:href => entries_dashboard_index_path(:id => folder.id, :type => 'folder', :filter => 'unread')}
+            =folder.name
+            -if folder.unread_count > 0
+              %span.ui-li-count=folder.unread_count
+        -folder.feeds.order(:position).each do |feed|
+          %li.feed
+            %a{:href => entries_dashboard_index_path(:id => feed.id, :type => 'feed', :filter => 'unread')}
+              %div
+                =feed.title
+                -if feed.unread_count > 0
+                  %span.ui-li-count=feed.unread_count

@@ -23,6 +23,10 @@ class User < ActiveRecord::Base
     @all_feeds_unread_count ||= feeds.map(&:unread_count).inject(:+).to_i
   end
 
+  def starred_count
+    @starred_count ||= entries.where(:starred => true).count
+  end
+
   private ######################################################################
 
   # before_validation
