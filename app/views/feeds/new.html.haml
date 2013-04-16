@@ -1,16 +1,3 @@
 .container
   %h1 New Feed
-  = error_messages_for @feed
-  = form_for @feed, :html => { :class => "formarea" } do |f|
-    %div
-      = f.label :feed_url
-      = f.text_field :feed_url
-    %div
-      = f.label :sanitization_level
-      = f.select :sanitization_level, Feed::SANITATION_LEVELS.map{|k, v| [v, k]}
-    %div
-      = f.label :folder_id
-      = f.select :folder_id, current_user.folders.order(:name).map{|f| [f.name, f.id] }
-    %div
-      %label &nbsp;
-      = f.submit "Create Feed"
+  = render :partial => "form"

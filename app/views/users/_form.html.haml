@@ -1,0 +1,17 @@
+= error_messages_for @user
+= form_for @user, :html => { :class => "formarea" } do |f|
+  %div
+    = f.label :login
+    = f.text_field :login
+  %div
+    - if @user.new_record?
+      = f.label :password
+    - else
+      = f.label :password, 'Update password'
+    = f.password_field :password
+  %div
+    = f.label :password_confirmation
+    = f.password_field :password_confirmation
+  %div
+    %label.padding &nbsp;
+    = f.submit

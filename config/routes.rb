@@ -22,7 +22,7 @@ Morrwbah::Application.routes.draw do
     end
   end
   
-  resources :entries, :only => [:show, :update]
+  resources :entries, :only => [:index, :show, :update]
 
   resources :folders do
     collection do

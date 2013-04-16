@@ -20,6 +20,6 @@ module Morrwbah
     # config.i18n.default_locale = :de
     ActionView::Base.field_error_proc = proc {|html, instance| html }
 
-    config.assets.precompile += %w(application-screen.css)
+    config.assets.precompile += %w(application-screen.css application-screen.js application-mobile.js)
   end
 end

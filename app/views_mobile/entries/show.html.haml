@@ -1,0 +1,28 @@
+= jquery_mobile_page(:class => "view-entry", :id => "entry-#{@entry.id}", :data => {:id => @entry.id, :url => "/entries", :entry_list_url_params => "identifier=#{params[:identifier]}&filter=#{params[:filter]}&type=#{params[:type]}&mark_read=true"}) do
+  = jquery_mobile_header(:data => { :id=>'view-entry-header', :tag_toggle=>'false' }) do
+    = jquery_mobile_back_button entries_dashboard_index_path(:id => params[:identifier], :type => params[:type], :filter => params[:filter])
+    .control.ui-btn-right{:data => { :role=>"controlgroup", :type=>"horizontal", :mini=>"true"}}
+      %a.prev{:href=>"#", :data => {:role=>"button", :icon=>"arrow-l", :iconpos=>"notext"}} Previous
+      %a.next{:href=>"#", :data => {:role=>"button", :icon=>"arrow-r", :iconpos=>"notext"}} Next
+    %h1=params[:title] || @entry.feed.title
+
+  = jquery_mobile_content(:data => {:fullscreen=>'true'}) do
+    .entry-title=link_to @entry.title.html_safe, @entry.url, :target => '_blank'
+    .entry-meta
+      ="by #{@entry.author}" if @entry.author
+      ="#{time_ago_in_words(@entry.published)} ago"
+
+    .entry-body=@entry.body.html_safe
+    .clearboth
+  = jquery_mobile_footer(:data => {:id=>'view-entry-footer', :tap_toggle=>'false'}) do
+    %h1 &nbsp;
+    %a.ui-btn-left.mark-read{:class => (@entry.read? ? 'read' : 'unread'), :data => {:role => "button", :id => @entry.id}} 
+      - if @entry.read
+        = image_tag("silk/icons/email_open.png", :size => "16x16")
+      - else
+        = image_tag("silk/icons/email.png", :size => "16x16")
+    %a.ui-btn-right.mark-starred{:class => (@entry.starred? ? 'starred' : 'unstarred'), :data => {:role => "button", :id => @entry.id}} 
+      - if @entry.starred
+        = image_tag("silk/icons/star.png", :size => "16x16")
+      - else
+        = image_tag("silk/icons/star_gray.png", :size => "16x16")

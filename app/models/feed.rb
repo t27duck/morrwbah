@@ -13,7 +13,7 @@ class Feed < ActiveRecord::Base
 
   has_many :entries, :dependent => :delete_all
   
-  validates_presence_of :user, :folder, :sanitization_level
+  validates_presence_of :user, :folder, :title, :sanitization_level
   
   before_validation :set_info!, :set_icon, :if => lambda{ |model| model.new_record? }
   after_create :fetch!

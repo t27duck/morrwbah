@@ -11,6 +11,7 @@ class DashboardController < ApplicationController
   end
 
   def entries
+    redirect_to dashboard_index_path and return unless request.xhr?
     @lister = EntryLister.new(current_user, params[:type], params[:filter], params[:id])
     @lister.generate
     render :layout => nil
