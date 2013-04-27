@@ -37,7 +37,7 @@ gem 'unicorn'
 
 # Deploy with Capistrano
 # Default deploy file (with bundle support) can be found in config/deloy.rb
-gem 'capistrano', group: :development, :github => 'jimryan/capistrano', :branch => 'support-json-manifest'
+gem 'capistrano', group: :development
 
 # Use whenever to set the crontab on production to
 # auto fetch new feed entries (Does not work on Windows)
