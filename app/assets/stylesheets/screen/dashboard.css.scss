@@ -41,7 +41,7 @@
       .unread {
         font-weight: bold;
       }
-      span.unread-count {
+      span.unread-count, span.starred-count {
         font-weight: normal;
         font-size: 85%;
         color: #666666;

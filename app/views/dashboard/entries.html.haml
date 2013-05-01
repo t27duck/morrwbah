@@ -1,8 +1,7 @@
 #feed-meta{:data => {:id => params[:id], :type => @lister.type}}
   #feed-controls
     #fetch-feed=image_tag('silk/icons/arrow_refresh.png', :size => '16x16')
-    - filters = [['Unread', 'unread'], ['All Items', 'all'], ['Starred', 'starred']]
-    - filters.delete(['Starred','starred']) if @lister.identifier == 'starred'
+    - filters = [['Unread', 'unread'], ['All Items', 'all']]
     =select_tag 'filter', options_for_select(filters, @lister.filter)
 
   #feed-title

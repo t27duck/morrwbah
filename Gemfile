@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.0.beta1'
+gem 'rails', '4.0.0.rc1'
 
 # Select the gem you want to use for your database
 # Copy and rename the appropriate db/database.yml.example file
@@ -10,22 +10,22 @@ gem 'rails', '4.0.0.beta1'
 #gem 'mysql2'  # MYSQL
 gem 'pg'      # POSTGRESQL
 
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails',   '~> 4.0.0.beta1'
+# Use SCSS for stylesheets
+gem 'sass-rails', '~> 4.0.0.rc1'
 
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'therubyracer', platforms: :ruby
+# Use Uglifier as compressor for JavaScript assets
+gem 'uglifier', '>= 1.3.0'
 
-  gem 'uglifier', '>= 1.0.3'
-end
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+gem 'therubyracer', platforms: :ruby
+
+# Use ActiveModel has_secure_password
+gem 'bcrypt-ruby', '~> 3.0.0'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'haml-rails'
 gem 'feedzirra', :github => 't27duck/feedzirra', :branch => 'lite'
-gem 'bcrypt-ruby'
 gem 'sanitize'
 
 

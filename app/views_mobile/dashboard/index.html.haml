@@ -17,7 +17,7 @@
         -starred_count = current_user.starred_count
         %a{:href => entries_dashboard_index_path(:id => 'starred', :type => 'starred', :filter => 'all')}
           Starred
-          -if unread_count > 0
+          -if starred_count > 0
             %span.ui-li-count=starred_count
       -@folders.each do |folder|
         %li.folder

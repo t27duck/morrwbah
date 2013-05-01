@@ -6,10 +6,13 @@
     %span.unread-count
       ="(#{unread_count})" if unread_count > 0
 
+-starred_count = current_user.starred_count
 .feed-title{:data => {:id => 'starred', :full_title => 'Starred', :type => 'starred'}}
-  %div
+  %div{:class => (starred_count > 0 ? 'unread' : nil)}
     =image_tag('silk/icons/star.png', :size => '16x16')
     Starred
+    %span.starred-count
+      ="(#{starred_count})" if starred_count > 0
 
 #feed-folder-list
   %ol.sortable
