@@ -12,20 +12,20 @@ class EntryLister
     case @type
     when 'all'
       @title = "All Items"
-      @entries = @user.entries.order(:published => :desc)
+      @entries = @user.entries.order(:published)
     when 'starred'
       @title = "Starred Items"
-      @entries = @user.entries.starred.order(:published => :desc)
+      @entries = @user.entries.starred.order(:published)
       @filter = 'all'
       @type = 'starred'
     when 'folder'
       folder = @user.folders.find(identifier)
       @title = folder.name
-      @entries = @user.entries.joins(:feed).where(:feeds => {:folder_id => folder.id}).order(:published => :desc)
+      @entries = @user.entries.joins(:feed).where(:feeds => {:folder_id => folder.id}).order(:published)
     else
       @feed = @user.feeds.find(identifier)
       @title = @feed.title
-      @entries = @feed.entries.order(:published => :desc)
+      @entries = @feed.entries.order(:published)
     end
     apply_filter
   end
