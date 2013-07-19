@@ -12,8 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.sortable
-//= require jquery.mjs.nestedSortable
 //= require jquery.hotkeys
-//= require dashboard
-//= require dashboard-functions
+//= boostrap
+//= require core
