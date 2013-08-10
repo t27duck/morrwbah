@@ -1,4 +1,24 @@
-#feed-list
-  =render :template => 'dashboard/feeds'
+.container-fluid
+  .row-fluid
+    .span3
+      #feed-list.well.sidebar-nav
+        %ul.nav.nav-list
+          %li.nav-header Feeds
+          %li.active
+            - unread_count = current_user.all_feeds_unread_count
+            %a{href: root_path}
+              =image_tag('default_feed_icon.png', :size => '16x16')
+              All Feeds
+              %span.unread-count
+              ="(#{unread_count})" if unread_count > 0
+          %li
+            -starred_count = current_user.starred_count
+            %a{href: root_path}
+              =image_tag('silk/icons/star.png', :size => '16x16')
+              Starred
+              %span.unread-count
+              ="(#{starred_count})" if starred_count > 0
 
+
+          
 #feed-entry-list

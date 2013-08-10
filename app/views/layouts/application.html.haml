@@ -2,27 +2,33 @@
 %html
   %head
     %title My Own RSS Reader
-    = stylesheet_link_tag    "application-screen", media: "screen"
-    = javascript_include_tag "application-screen"
-    :javascript
-      $(document).ready(function() {
-        var $flash_notice = $('#flash-notice');
-        if ($flash_notice.html() != '') {
-          $flash_notice.show().delay(5000).fadeOut(1000);
-        }
-      });
+    %meta{"http-equiv"=>"X-UA-Compatible", :content=>"IE=edge"}
+    %meta{:name=>"viewport", :content=>"width=device-width, initial-scale=1.0"}
+    = stylesheet_link_tag    "application", media: "screen"
+    = javascript_include_tag "application"
     = csrf_meta_tags
 %body{:id => controller.controller_name}
   #loading-notice.notice.hidden Loading...
   - flash_var = flash[:notice] || flash[:error] || nil
   #flash-notice.notice.hidden=flash_var
-  #navigation
-    = link_to "My Own RSS Reader", root_path
-    -if current_user
-      #user-section
-        #config=link_to image_tag("silk/icons/cog.png", :size => "16x16", :title => "Settings"), settings_dashboard_index_path
-        #add-feed=link_to image_tag("silk/icons/feed_add.png", :size => "16x16", :title => "Add Feed"), new_feed_path
-        #logout=link_to image_tag("silk/icons/door_in.png", :size => "16x16", :title => "Logout"), logout_path, :data => { :confirm => "Are you sure out want to logout?" }
-        #greeting="Hello, #{current_user.login}"
+
+  .navbar.navbar-inverse.navbar-fixed-top
+    .navbar-inner
+      .container-fluid
+        %button.btn.btn-navbar{type:"button", data: {toggle: "collapse", target: ".nav-collapse"} }
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        = link_to "My Own RSS Reader", root_path, class: "brand"
+        .nav-collapse.collapse
+          -if current_user
+            %p.navbar-text.pull-right
+              Hello, t27duck
+              =# "Hello, #{current_user.login}"
+          %ul.nav
+            -if current_user
+              %li= link_to "Settings", settings_dashboard_index_path
+              %li= link_to "Add Feed", new_feed_path
+              %li= link_to "Logout", logout_path, :data => { :confirm => "Are you sure out want to logout?" }
   #wrapper
     = yield

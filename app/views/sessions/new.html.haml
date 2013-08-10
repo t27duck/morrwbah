@@ -1,3 +1,9 @@
 .container
-  %h1 Log In
-  =  render :partial => "form"
+  = form_tag sessions_path, :class => "form-signin" do
+    %h2.form-signin-heading Sign In
+    = text_field_tag :login, params[:login], class: "input-block-level", placeholder: "Login"
+    = password_field_tag :password, nil, class: "input-block-level", placeholder: "Password"
+    %label.checkbox
+      = check_box_tag :remember_me
+      Remember me
+    %button.bn.btn-large.btn-primary{type:"submit"} Log In
