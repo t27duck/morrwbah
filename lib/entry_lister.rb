@@ -1,7 +1,7 @@
 class EntryLister
   attr_reader :entries, :title, :type, :identifier, :filter, :feed
 
-  def initialize(user, type, filter, identifier)
+  def initialize(user, type="all", filter="unread", identifier=nil)
     @user = user
     @type = type
     @filter = filter
@@ -18,10 +18,6 @@ class EntryLister
       @entries = @user.entries.starred.order(:published)
       @filter = 'all'
       @type = 'starred'
-    when 'folder'
-      folder = @user.folders.find(identifier)
-      @title = folder.name
-      @entries = @user.entries.joins(:feed).where(:feeds => {:folder_id => folder.id}).order(:published)
     else
       @feed = @user.feeds.find(identifier)
       @title = @feed.title

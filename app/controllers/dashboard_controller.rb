@@ -4,6 +4,10 @@ class DashboardController < ApplicationController
   before_action :get_folders, :only  => [:index, :feeds, :settings]
 
   def index
+    params[:type] ||= "all"
+    params[:filter] ||= "unread"
+    @lister = EntryLister.new(current_user, params[:type], params[:filter], params[:feed_id])
+    @lister.generate
   end
 
   def feeds
@@ -11,10 +15,10 @@ class DashboardController < ApplicationController
   end
 
   def entries
-    redirect_to dashboard_index_path and return unless request.xhr?
+    params[:type] ||= "all"
+    params[:filter] ||= "unread"
     @lister = EntryLister.new(current_user, params[:type], params[:filter], params[:id])
     @lister.generate
-    render :layout => nil
   end
 
   def settings

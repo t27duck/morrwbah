@@ -23,12 +23,14 @@
         .nav-collapse.collapse
           -if current_user
             %p.navbar-text.pull-right
-              Hello, t27duck
-              =# "Hello, #{current_user.login}"
+              = "Hello, #{current_user.login} "
+              (
+              = link_to "Logout", logout_path, :data => { :confirm => "Are you sure out want to logout?" }
+              )
           %ul.nav
             -if current_user
-              %li= link_to "Settings", settings_dashboard_index_path
-              %li= link_to "Add Feed", new_feed_path
-              %li= link_to "Logout", logout_path, :data => { :confirm => "Are you sure out want to logout?" }
+              %li= link_to "All Feeds", "#"
+              %li= link_to "Starred Items", "#"
+              %li= link_to "Manage Feeds", "#"
   #wrapper
     = yield
