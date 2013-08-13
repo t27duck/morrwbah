@@ -61,3 +61,10 @@ table.table {
     padding: 7px 9px;
   }
 }
+
+#entry-list {
+  overflow-y: auto;
+  margin-bottom: 5px;
+  height: 120px;
+  border-left: 1px solid #DDDDDD;
+}

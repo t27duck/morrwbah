@@ -6,7 +6,7 @@ class EntriesController < ApplicationController
   end
 
   def show
-    @entry.update_attributes!(:read => true) if params[:mark_read]
+    #@entry.update_attributes!(:read => true) if params[:mark_read]
     render :layout => nil
   end
 

@@ -5,8 +5,8 @@
         - @lister.entries.each do |entry|
           .accordion-group
             .accordion-heading
-              %a.accordion-toggle{href: "#entry-#{entry.id}", data: {parent: "#entry-list", toggle: "collapse"}}
+              %a.accordion-toggle{href: "#entry-#{entry.id}", data: {parent: "#entry-list"}}
                 = entry.title
-            .accordion-body.collapse{id: "entry-#{entry.id}"}
+            .accordion-body.collapse{id: "entry-#{entry.id}", data: {entry_id: entry.id}}
               .accordion-inner
                 Here
