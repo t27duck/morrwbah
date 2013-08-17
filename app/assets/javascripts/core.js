@@ -1,42 +1,49 @@
 $(document).ready(function() { 
-  $(document).bind('keyup', 'j', function(e) {
-    var $current = $(".accordion-body.in");
+  $(document).bind("keyup", "j", function() {
+    $("#next-entry").trigger("click");
+  });
+  
+  $(document).bind("keyup", "k", function() {
+    $("#prev-entry").trigger("click");
+  });
+  
+  $("#next-entry").on("click", function() {
+    var $current = $(".panel-collapse.in");
     var $next;
     if ($current.size() > 0) {
       $next = $current.parent().next();
       if ($next.size() > 0) {
-        $next.children(".accordion-heading").trigger("click");
+        $next.children(".panel-heading").trigger("click");
       }
     } else {
-      $(".accordion-heading:first").trigger("click");
+      $(".panel-heading:first").trigger("click");
     }
   });
 
-  $(document).bind('keyup', 'k', function(e) {
-    var $current = $(".accordion-body.in");
+  $("#prev-entry").on("click", function() {
+    var $current = $(".panel-collapse.in");
     var $prev;
     if ($current.size() > 0) {
       $prev = $current.parent().prev();
       if ($prev.size() > 0) {
-        $prev.children(".accordion-heading").trigger("click");
+        $prev.children(".panel-heading").trigger("click");
       }
     } else {
-      $(".accordion-heading:last").trigger("click");
+      $(".panel-heading:last").trigger("click");
     }
-
   });
 
-  $(".accordion-heading").on("click", function() {
+  $(".panel-heading").on("click", function() {
     event.preventDefault();
 
-    $(".accordion-body.in").each(function() {
+    $(".panel-collapse.in").each(function() {
       $(this).removeClass("in");
-      $(this).children(".accordion-inner").html("");
+      $(this).children(".panel-body").html("");
     });
     
     var $this = $(this);
-    var $body = $this.parent().children(".accordion-body");
-    var $body_inner = $body.children(".accordion-inner");
+    var $body = $this.parent().children(".panel-collapse");
+    var $body_inner = $body.children(".panel-body");
     var id = $body.data("entry-id");
     $.ajax({
       url: "/entries/"+id, 
@@ -46,7 +53,6 @@ $(document).ready(function() {
       $body.addClass("in");
       $this[0].scrollIntoView(true);
     });
-
   });
 
   $(window).resize(function() {

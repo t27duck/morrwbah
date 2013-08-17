@@ -1,12 +1,18 @@
 .container-fluid
   .row-fluid
     .span12
-      #entry-list.accordion
+      #entry-nav.pull-right
+        %button#prev-entry.btn.btn-primary{type: "button"} &laquo; Prev
+        %button#next-entry.btn.btn-primary{type: "button"} Next &raquo;
+      %h3#entry-list-title All Items
+      .clearfix
+      #entry-list.panel-group
         - @lister.entries.each do |entry|
-          .accordion-group
-            .accordion-heading
-              %a.accordion-toggle{href: "#entry-#{entry.id}", data: {parent: "#entry-list"}}
-                = entry.title
-            .accordion-body.collapse{id: "entry-#{entry.id}", data: {entry_id: entry.id}}
-              .accordion-inner
+          .panel
+            .panel-heading
+              %h3.panel-title
+                %a.panel-toggle{href: "#entry-#{entry.id}", data: {parent: "#entry-list"}}
+                  = entry.title
+            .panel-collapse.collapse{id: "entry-#{entry.id}", data: {entry_id: entry.id}}
+              .panel-body
                 Here

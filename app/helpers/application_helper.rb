@@ -1,4 +1,11 @@
 module ApplicationHelper
+  
+  def unread_count(title, count)
+    out = title
+    out += " <span class='unread-count'>(#{count})</span>"
+    out.html_safe
+  end
+
   def error_messages_for(object)
     html = ''
     if object.errors.any?
