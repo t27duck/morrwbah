@@ -4,15 +4,15 @@ Morrwbah::Application.routes.draw do
   
   get 'login', to: 'sessions#new', as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
-  resources :sessions, :only => [:new, :create, :destroy]
+  resources :sessions, only: [:new, :create, :destroy]
 
   resources :users
 
+  get "dashboard/entries/:id" => "dashboard#entries", as: "dashboard_entries"
   resources :dashboard, :only => :index do
     collection do
       get :settings
       get :feeds
-      get :entries
     end
   end
 

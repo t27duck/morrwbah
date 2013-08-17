@@ -1,23 +1,21 @@
 class EntryLister
-  attr_reader :entries, :title, :type, :identifier, :filter, :feed
+  attr_reader :entries, :title, :identifier, :filter, :feed
 
-  def initialize(user, type="all", filter="unread", identifier=nil)
+  def initialize(user, filter="unread", identifier="all")
     @user = user
-    @type = type
     @filter = filter
     @identifier = identifier
   end
 
   def generate
-    case @type
+    case identifier
     when 'all'
-      @title = "All Items"
+      @title = "All Feeds"
       @entries = @user.entries.order(:published)
     when 'starred'
-      @title = "Starred Items"
+      @title = "Starred Entries"
       @entries = @user.entries.starred.order(:published)
-      @filter = 'all'
-      @type = 'starred'
+      @filter = "all"
     else
       @feed = @user.feeds.find(identifier)
       @title = @feed.title
@@ -29,6 +27,6 @@ class EntryLister
   private ######################################################################
   
   def apply_filter
-    @entries = entries.send(@filter) if ['unread','starred'].include?(@filter)
+    @entries = entries.send(@filter) if ["unread", "read"].include?(@filter)
   end
 end

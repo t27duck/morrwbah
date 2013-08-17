@@ -1,11 +1,17 @@
 .container-fluid
   .row-fluid
     .span12
-      #entry-nav.pull-right
-        %button#prev-entry.btn.btn-primary{type: "button"} &laquo; Prev
-        %button#next-entry.btn.btn-primary{type: "button"} Next &raquo;
-      %h3#entry-list-title All Items
-      .clearfix
+      #entry-list-title
+        %h3= @lister.title
+      #entry-nav
+        .pull-right
+          %button#prev-entry.btn.btn-primary{type: "button"} &laquo; Prev
+          %button#next-entry.btn.btn-primary{type: "button"} Next &raquo;
+        - unless @lister.filter == "all"
+          %ul.nav.nav-pills
+            %li{class: @lister.filter == "unread" ? "active" : nil}= link_to "Unread", dashboard_entries_path(@lister.identifier)
+            %li{class: @lister.filter == "read" ? "active" : nil}= link_to "Read", dashboard_entries_path(@lister.identifier, filter: "read")
+        .clearfix
       #entry-list.panel-group
         - @lister.entries.each do |entry|
           .panel
