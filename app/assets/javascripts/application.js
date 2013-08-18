@@ -13,5 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.hotkeys
+//= require jquery.fitvids
 //= require bootstrap
 //= require core

@@ -5,6 +5,7 @@ class Entry < ActiveRecord::Base
   validates_presence_of :feed, :user, :title, :url, :published, :guid
 
   scope :unread, -> { where(:read => false) }
+  scope :read, -> { where(:read => true) }
   scope :starred, -> { where(:starred => true) }
 
   def body
@@ -21,6 +22,7 @@ class Entry < ActiveRecord::Base
     else
       false
     end
-    level ? Sanitize.clean(entry_body, level) : entry_body
+    body = level ? Sanitize.clean(entry_body, level) : entry_body
+
   end
 end

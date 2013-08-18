@@ -50,16 +50,25 @@ $(document).ready(function() {
       type: "GET"
     }).done(function(data) {
       $body_inner.html(data);
+      $body_inner.fitVids();
       $body.addClass("in");
       $this[0].scrollIntoView(true);
     });
   });
 
+  $("#entry-list").on("click", ".star-entry", function() {
+    var id = $(this).data("entry-id");
+    var current = $(this).data("starred-state");
+  });
+
+  $("#entry-list").on("click", ".read-entry", function() {
+  });
+
   $(window).resize(function() {
-    if ($('#entry-list').size() > 0) {
-      $('#entry-list').height($(window).height() - $('#entry-list').offset().top - 15);
+    if ($("#entry-list").size() > 0) {
+      $("#entry-list").height($(window).height() - $("#entry-list").offset().top - 15);
     }
   });
 
-  $(window).trigger('resize');
+  $(window).trigger("resize");
 });

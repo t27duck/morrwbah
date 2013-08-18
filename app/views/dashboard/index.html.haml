@@ -1,24 +1,27 @@
 .container-fluid
   .row-fluid
     .span12
+      #entry-nav.pull-right
+        - if @lister.filter == "unread"
+          = link_to "View Read", dashboard_entries_path(@lister.identifier, filter: "read"), :class => "btn btn-primary"
+        - elsif @lister.filter == "read"
+          = link_to "View Unread", dashboard_entries_path(@lister.identifier), :class => "btn btn-primary"
+        %button#prev-entry.btn.btn-primary{type: "button"} &laquo; Prev
+        %button#next-entry.btn.btn-primary{type: "button"} Next &raquo;
       #entry-list-title
         %h3= @lister.title
-      #entry-nav
-        .pull-right
-          %button#prev-entry.btn.btn-primary{type: "button"} &laquo; Prev
-          %button#next-entry.btn.btn-primary{type: "button"} Next &raquo;
-        - unless @lister.filter == "all"
-          %ul.nav.nav-pills
-            %li{class: @lister.filter == "unread" ? "active" : nil}= link_to "Unread", dashboard_entries_path(@lister.identifier)
-            %li{class: @lister.filter == "read" ? "active" : nil}= link_to "Read", dashboard_entries_path(@lister.identifier, filter: "read")
-        .clearfix
-      #entry-list.panel-group
-        - @lister.entries.each do |entry|
-          .panel
-            .panel-heading
-              %h3.panel-title
-                %a.panel-toggle{href: "#entry-#{entry.id}", data: {parent: "#entry-list"}}
-                  = entry.title
-            .panel-collapse.collapse{id: "entry-#{entry.id}", data: {entry_id: entry.id}}
-              .panel-body
-                Here
+      .clearfix
+      - if @lister.entries.empty?
+        #entry-list
+          %h2.text-center No Entries Found
+      - else
+        #entry-list.panel-group
+          - @lister.entries.each do |entry|
+            .panel
+              .panel-heading
+                %h3.panel-title
+                  %a.panel-toggle{href: "#entry-#{entry.id}", data: {parent: "#entry-list"}}
+                    = entry.title
+              .panel-collapse.collapse{id: "entry-#{entry.id}", data: {entry_id: entry.id}}
+                .panel-body
+                  Loading...
