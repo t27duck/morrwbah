@@ -1,7 +1,6 @@
 class User < ActiveRecord::Base
   has_secure_password
 
-  has_many :folders, :dependent => :destroy
   has_many :feeds
   has_many :entries
  
@@ -12,7 +11,6 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :auth_token
 
   before_validation :set_auth_token
-  after_create :create_first_folder
  
   def fetch_feeds!
     feeds.map(&:fetch!)
@@ -36,10 +34,5 @@ class User < ActiveRecord::Base
         self.auth_token = SecureRandom.urlsafe_base64
       end while User.exists?(:auth_token => auth_token)
     end
-  end
-
-  # after_create
-  def create_first_folder
-    folders.create!(:name => 'Subscriptions')
   end
 end

@@ -20,9 +20,8 @@ class Entry < ActiveRecord::Base
     when 4
       Sanitize::Config::DEFAULT
     else
-      false
+      nil
     end
-    body = level ? Sanitize.clean(entry_body, level) : entry_body
-
+    level ? Sanitize.clean(entry_body, level) : entry_body
   end
 end

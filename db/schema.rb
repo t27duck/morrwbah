@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130319011444) do
+ActiveRecord::Schema.define(version: 20130818231755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,14 +32,13 @@ ActiveRecord::Schema.define(version: 20130319011444) do
     t.datetime "updated_at"
   end
 
-  add_index "entries", ["feed_id", "user_id", "guid"], name: "index_entries_on_feed_id_and_user_id_and_guid"
-  add_index "entries", ["feed_id"], name: "index_entries_on_feed_id"
-  add_index "entries", ["user_id"], name: "index_entries_on_user_id"
+  add_index "entries", ["feed_id", "user_id", "guid"], name: "index_entries_on_feed_id_and_user_id_and_guid", using: :btree
+  add_index "entries", ["feed_id"], name: "index_entries_on_feed_id", using: :btree
+  add_index "entries", ["user_id"], name: "index_entries_on_user_id", using: :btree
 
   create_table "feeds", force: true do |t|
     t.integer  "user_id",                        null: false
     t.integer  "position",           default: 0, null: false
-    t.integer  "folder_id",                      null: false
     t.string   "title",                          null: false
     t.string   "url"
     t.string   "feed_url",                       null: false
@@ -52,19 +51,7 @@ ActiveRecord::Schema.define(version: 20130319011444) do
     t.datetime "updated_at"
   end
 
-  add_index "feeds", ["folder_id"], name: "index_feeds_on_folder_id"
-  add_index "feeds", ["user_id"], name: "index_feeds_on_user_id"
-
-  create_table "folders", force: true do |t|
-    t.integer  "user_id",                null: false
-    t.integer  "position",   default: 0, null: false
-    t.string   "name",                   null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "folders", ["position"], name: "index_folders_on_position"
-  add_index "folders", ["user_id"], name: "index_folders_on_user_id"
+  add_index "feeds", ["user_id"], name: "index_feeds_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "login",           null: false
@@ -74,7 +61,7 @@ ActiveRecord::Schema.define(version: 20130319011444) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["auth_token"], name: "index_users_on_auth_token", unique: true
-  add_index "users", ["login"], name: "index_users_on_login", unique: true
+  add_index "users", ["auth_token"], name: "index_users_on_auth_token", unique: true, using: :btree
+  add_index "users", ["login"], name: "index_users_on_login", unique: true, using: :btree
 
 end
