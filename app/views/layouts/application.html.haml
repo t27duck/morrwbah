@@ -22,15 +22,15 @@
       .navbar-collapse.collapse
         %ul.nav.navbar-nav
           -if current_user
-            %li= link_to unread_count("All", current_user.all_feeds_unread_count), dashboard_entries_path("all")
-            %li= link_to unread_count("Starred", current_user.starred_count), dashboard_entries_path("starred")
+            %li= link_to unread_count("All", current_user.all_feeds_unread_count), dashboard_entries_path("all"), class: "feed-link-all"
+            %li= link_to unread_count("Starred", current_user.starred_count), dashboard_entries_path("starred"), class: "feed-link-starred"
             %li.dropdown
               %a.dropdown-toggle{href: "#", data: {toggle: "dropdown"}}
                 Feeds
                 %b.caret
                 %ul.dropdown-menu
                   - current_user.feeds.each do |feed|
-                    %li= link_to unread_count(feed.title, feed.unread_count), dashboard_entries_path(feed.id)
+                    %li= link_to unread_count(feed.title, feed.unread_count), dashboard_entries_path(feed.id), class: "feed-link-#{feed.id}"
             %li= link_to "Manage", "#"
         %ul.nav.navbar-nav.navbar-right
           -if current_user

@@ -1,4 +1,11 @@
 $(document).ready(function() { 
+  $.ajaxSetup({
+    'beforeSend': function(xhr) {
+      xhr.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+    },
+    cache: false
+  });
+
   $(document).bind("keyup", "j", function() {
     $("#next-entry").trigger("click");
   });
@@ -57,11 +64,42 @@ $(document).ready(function() {
   });
 
   $("#entry-list").on("click", ".star-entry", function() {
-    var id = $(this).data("entry-id");
+    var new_state, new_label, change_value;
+    var entry_id = $(this).data("entry-id");
     var current = $(this).data("starred-state");
+    if (current === true) {
+      new_state = false;
+      change_value = -1;
+      new_label = "Star";
+    } else {
+      new_state = true;
+      change_value = 1;
+      new_label = "Unstar";
+    }
+    update_entry(entry_id, {"starred": new_state});
+    update_counter("starred", change_value);
+    $(this).html(new_label).data("starred-state", new_state);
   });
 
   $("#entry-list").on("click", ".read-entry", function() {
+    var new_state, new_label, change_value;
+    var entry_id = $(this).data("entry-id");
+    var feed_id = $(this).data("feed-id");
+    var current = $(this).data("read-state");
+    if (current === true) {
+      new_state = false;
+      change_value = 1;
+      new_label = "Read";
+    } else {
+      new_state = true;
+      change_value = -1;
+      new_label = "Unread";
+    }
+    update_entry(entry_id, {"read": new_state});
+    update_counter(feed_id, change_value);
+    update_counter("all", change_value);
+    $(this).html(new_label).data("read-state", new_state);
+
   });
 
   $(window).resize(function() {
@@ -72,3 +110,17 @@ $(document).ready(function() {
 
   $(window).trigger("resize");
 });
+
+function update_entry(entry_id, data) {
+  $.ajax({
+    url: "/entries/"+entry_id,
+    type: "POST", 
+    data: {"_method": "patch", "entry": data},
+    async: false
+  });
+}
+
+function update_counter(feed_id, changed_value) {
+  var $counter = $(".feed-link-"+feed_id+" span.unread-count");
+  $counter.html(parseInt($counter.html()) + changed_value);
+}

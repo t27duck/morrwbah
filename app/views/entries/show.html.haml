@@ -1,7 +1,8 @@
 .pull-right
-  %button.btn.btn-primary{type: "button", data: {entry_id: @entry.id, starred_state: @entry.starred.to_s}}
-    Star
-.clearfix
+  %button.btn.btn-primary.read-entry{type: "button", data: {feed_id: @entry.feed_id, entry_id: @entry.id, read_state: @entry.read.to_s}}
+    = @entry.read ? "Unread" : "Read"
+  %button.btn.btn-primary.star-entry{type: "button", data: {feed_id: @entry.feed_id, entry_id: @entry.id, starred_state: @entry.starred.to_s}}
+    = @entry.starred ? "Unstar" : "Star"
 .entry-title=link_to @entry.title.html_safe, @entry.url, :target => '_blank'
 .entry-meta
   ="by #{@entry.author}" if @entry.author
