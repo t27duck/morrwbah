@@ -1,9 +1,10 @@
 .container
-  = form_tag sessions_path, :class => "form-signin form" do
-    %h2.form-signin-heading Sign In
-    = text_field_tag :login, params[:login], class: "form-control", placeholder: "Login"
-    = password_field_tag :password, nil, class: "form-control", placeholder: "Password"
-    %label.checkbox
-      = check_box_tag :remember_me
-      Remember me
-    %button.btn.btn-large.btn-primary.btn-block{type:"submit"} Log In
+  .content
+    = form_tag sessions_path, :class => "form-signin form" do
+      %h2.form-signin-heading Sign In
+      = text_field_tag :login, params[:login], class: "form-control", placeholder: "Login"
+      = password_field_tag :password, nil, class: "form-control", placeholder: "Password"
+      %label.checkbox
+        = check_box_tag :remember_me
+        Remember me
+      %button.btn.btn-large.btn-primary.btn-block{type:"submit"} Log In

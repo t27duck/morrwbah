@@ -1,17 +1,16 @@
 = error_messages_for @user
-= form_for @user, :html => { :class => "formarea" } do |f|
-  %div
+= form_for @user, :html => { :class => "form" } do |f|
+  .form-group
     = f.label :login
-    = f.text_field :login
-  %div
+    = f.text_field :login, class: "form-control"
+  .form-group
     - if @user.new_record?
       = f.label :password
     - else
-      = f.label :password, 'Update password'
-    = f.password_field :password
-  %div
+      = f.label :password, "Update password"
+    = f.password_field :password, class: "form-control"
+  .form-group
     = f.label :password_confirmation
-    = f.password_field :password_confirmation
-  %div
-    %label.padding &nbsp;
-    = f.submit
+    = f.password_field :password_confirmation, class: "form-control"
+  
+  %button{type: "submit", class: "btn btn-primary"} Submit

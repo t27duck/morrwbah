@@ -3,9 +3,9 @@
     .span12
       #entry-nav.pull-right
         - if @lister.filter == "unread"
-          = link_to "View Read", dashboard_entries_path(@lister.identifier, filter: "read"), :class => "btn btn-primary"
+          = link_to "View Read", feed_path(@lister.identifier, filter: "read"), :class => "btn btn-primary"
         - elsif @lister.filter == "read"
-          = link_to "View Unread", dashboard_entries_path(@lister.identifier), :class => "btn btn-primary"
+          = link_to "View Unread", feed_path(@lister.identifier), :class => "btn btn-primary"
         %button#prev-entry.btn.btn-primary{type: "button"} &laquo; Prev
         %button#next-entry.btn.btn-primary{type: "button"} Next &raquo;
       #entry-list-title
@@ -22,6 +22,6 @@
                 %h3.panel-title
                   %a.panel-toggle{href: "#entry-#{entry.id}", data: {parent: "#entry-list"}}
                     = entry.title
-              .panel-collapse.collapse{id: "entry-#{entry.id}", data: {entry_id: entry.id}}
+              .panel-collapse.collapse{id: "entry-#{entry.id}", data: {entry_id: entry.id, feed_id: entry.feed_id}}
                 .panel-body
                   Loading...

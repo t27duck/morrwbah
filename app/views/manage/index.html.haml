@@ -1,0 +1,34 @@
+.container.content
+  %h1 Manage
+
+  = link_to "New Feed", new_feed_path, class: "btn btn-primary"
+  = link_to "New User", new_user_path, class: "btn btn-primary"
+
+  %table.table.table-stripped.table-hover
+    %thead
+      %tr
+        %th Feeds
+        %th.last Actions
+    %tbody
+      -@feeds.each do |feed|
+        %tr{:class => cycle('odd', 'even')}
+          %td=feed.title
+          %td.last
+            =link_to "Edit", edit_feed_path(feed)
+            |
+            =link_to "Delete", feed_path(feed), method: :delete, data: { confirm: "Are you sure?" }
+
+  %table.table.table-stripped.table-hover
+    %thead
+      %tr
+        %th Users
+        %th.last Actions
+    %tbody
+      -@users.each do |user|
+        %tr
+          %td=user.login
+          %td.last
+            =link_to "Edit", edit_user_path(user)
+            |
+            =link_to "Delete", user_path(user), method: :delete, data: { confirm: "Are you sure?" }
+

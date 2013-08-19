@@ -1,12 +1,8 @@
 class EntriesController < ApplicationController
-  before_action :set_feed_and_entry, :except => :index
-
-  def index
-    redirect_to dashboard_index_path
-  end
+  before_action :set_feed_and_entry
 
   def show
-    #@entry.update_attributes!(:read => true) if params[:mark_read]
+    @entry.update_attributes!(:read => true)
     render :layout => nil
   end
 

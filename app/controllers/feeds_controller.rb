@@ -1,12 +1,13 @@
+require 'entry_lister'
 class FeedsController < ApplicationController
-  before_action :set_feed, only: [:show, :edit, :update, :destroy, :fetch]
+  before_action :fetch_entries, only: [:index, :show]
+  before_action :set_feed, only: [:edit, :update, :destroy]
 
   def index
-    redirect_to settings_dashboard_index_path
   end
 
   def show
-    redirect_to edit_feed_path(@feed)
+    render :index
   end
 
   def new
@@ -19,7 +20,7 @@ class FeedsController < ApplicationController
   def create
     @feed = current_user.feeds.new(feed_params)
     if @feed.save
-      redirect_to settings_dashboard_index_path, notice: 'Feed was successfully created.'
+      redirect_to manage_index_path, notice: 'Feed was successfully created.'
     else
       render action: 'new'
     end
@@ -27,7 +28,7 @@ class FeedsController < ApplicationController
 
   def update
     if @feed.update(feed_params)
-      redirect_to settings_dashboard_index_path, notice: 'Feed was successfully updated.'
+      redirect_to manage_index_path, notice: 'Feed was successfully updated.'
     else
       render action: 'edit'
     end
@@ -35,22 +36,29 @@ class FeedsController < ApplicationController
 
   def destroy
     @feed.destroy
-    redirect_to settings_dashboard_index_path
+    flash[:notice] = "Feed deleted"
+    redirect_to manage_index_path
   end
 
   def fetch
-    @feed.fetch!
-    redirect_to feed_url(@feed)
+    current_user.fetch_feeds!
+    redirect_to root_path
   end
 
   private ######################################################################
 
   def set_feed
-    @feed = Feed.find(params[:id])
+    @feed = current_user.feeds.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def feed_params
     params.require(:feed).permit(:title, :feed_url, :sanitization_level)
+  end
+  
+  def fetch_entries
+    params[:id] ||= "all"
+    params[:filter] ||= "unread"
+    @lister = EntryLister.new(current_user, params[:filter], params[:id])
+    @lister.generate
   end
 end

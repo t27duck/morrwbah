@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130818231755) do
+ActiveRecord::Schema.define(version: 20130819002030) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,7 +43,6 @@ ActiveRecord::Schema.define(version: 20130818231755) do
     t.string   "url"
     t.string   "feed_url",                       null: false
     t.string   "etag"
-    t.string   "icon_path"
     t.integer  "sanitization_level", default: 1, null: false
     t.datetime "last_modified",                  null: false
     t.datetime "last_checked"

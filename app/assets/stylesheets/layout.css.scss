@@ -1,43 +1,16 @@
 body {
-   //padding-top: 60px; /* Forces container below topbar */
-   // background-color: #f5f5f5;
-   padding: 0;
+  padding: 0;
 }
 
 #wrapper {
   margin: 0 5px;
 }
 
-.navbar-static-top {
-  margin-bottom: 19px;
-}
-.content-box {
-  background-color: #fff;
-  margin: 0 0 8px 0;
-  padding: 8px;
-  border-radius: 6px;
-}
-
 table.table {
-  td.last {
+  th.last, td.last {
     text-align: right;
   }
 }
-
-/*
-@media (max-width: 980px) {
-  .navbar-text.pull-right {
-    float: none;
-    padding-left: 5px;
-    padding-right: 5px;
-  }
-  .navbar-text.pull-right {
-    float: none;
-    padding-left: 5px;
-    padding-right: 5px;
-  }
-}
-*/
 
 .form-signin {
   max-width: 300px;
@@ -57,13 +30,6 @@ table.table {
   .form-signin-heading,
   .checkbox {
     margin-bottom: 10px;
-  }
-  input[type="text"],
-  input[type="password"] {
-    font-size: 16px;
-    height: auto;
-    margin-bottom: 15px;
-    padding: 7px 9px;
   }
 }
 

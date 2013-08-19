@@ -45,21 +45,25 @@ $(document).ready(function() {
 
     $(".panel-collapse.in").each(function() {
       $(this).removeClass("in");
-      $(this).children(".panel-body").html("");
+      $(this).children(".panel-body").html("Loading...");
     });
     
     var $this = $(this);
     var $body = $this.parent().children(".panel-collapse");
     var $body_inner = $body.children(".panel-body");
-    var id = $body.data("entry-id");
+    var entry_id = $body.data("entry-id");
+    var feed_id = $body.data("feed-id");
+
     $.ajax({
-      url: "/entries/"+id, 
+      url: "/entries/"+entry_id, 
       type: "GET"
     }).done(function(data) {
       $body_inner.html(data);
       $body_inner.fitVids();
       $body.addClass("in");
       $this[0].scrollIntoView(true);
+      update_counter(feed_id, -1);
+      update_counter("all", -1);
     });
   });
 

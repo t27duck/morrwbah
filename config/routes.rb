@@ -1,27 +1,21 @@
 Morrwbah::Application.routes.draw do
 
-  root :to => 'dashboard#index'
+  root :to => "feeds#index"
   
-  get 'login', to: 'sessions#new', as: 'login'
-  get 'logout', to: 'sessions#destroy', as: 'logout'
+  get 'login', to: "sessions#new", as: "login"
+  get 'logout', to: "sessions#destroy", as: "logout"
   resources :sessions, only: [:new, :create, :destroy]
 
-  resources :users
-
-  get "dashboard/entries/:id" => "dashboard#entries", as: "dashboard_entries"
-  resources :dashboard, :only => :index do
-    collection do
-      get :settings
-      get :feeds
-    end
-  end
+  resources :users, only: [:new, :create, :update, :destroy]
 
   resources :feeds do
-    member do
+    collection do
       get :fetch
     end
   end
   
-  resources :entries, :only => [:index, :show, :update]
+  resources :entries, only: [:show, :update]
+
+  resources :manage, only: :index
 
 end
