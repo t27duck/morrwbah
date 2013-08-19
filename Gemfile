@@ -23,7 +23,6 @@ gem 'therubyracer', platforms: :ruby
 gem 'bcrypt-ruby', '~> 3.0.0'
 
 gem 'jquery-rails'
-gem 'jquery-ui-rails'
 gem 'haml-rails'
 gem 'feedzirra', :github => 't27duck/feedzirra', :branch => 'lite'
 gem 'sanitize'
