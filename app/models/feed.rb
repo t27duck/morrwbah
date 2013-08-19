@@ -33,6 +33,10 @@ class Feed < ActiveRecord::Base
     save!
   end
 
+  def clean!
+    entries.where(:read => true).where(:starred => false).where(["created_at <= ?", 2.days.ago]).delete_all
+  end
+
   def unread_count
     @unread_count ||= entries.unread.count
   end
