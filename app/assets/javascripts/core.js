@@ -93,11 +93,11 @@ $(document).ready(function() {
     if (current === true) {
       new_state = false;
       change_value = 1;
-      new_label = "Read";
+      new_label = "Mark Read";
     } else {
       new_state = true;
       change_value = -1;
-      new_label = "Unread";
+      new_label = "Mark Unread";
     }
     update_entry(entry_id, {"read": new_state});
     update_counter(feed_id, change_value);
