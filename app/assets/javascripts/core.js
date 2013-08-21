@@ -53,17 +53,29 @@ $(document).ready(function() {
     var $body_inner = $body.children(".panel-body");
     var entry_id = $body.data("entry-id");
     var feed_id = $body.data("feed-id");
+    var read_state = $body.data("read-state");
+    var new_state = true;
+
+    if (read_state.toString() === "true") {
+      new_state = false;
+    }
+
+    var data = {mark_read: new_state};
 
     $.ajax({
       url: "/entries/"+entry_id, 
-      type: "GET"
+      type: "GET",
+      data: data
     }).done(function(data) {
       $body_inner.html(data);
       $body_inner.fitVids();
       $body.addClass("in");
       $this[0].scrollIntoView(true);
-      update_counter(feed_id, -1);
-      update_counter("all", -1);
+      if (new_state == true) {
+        update_counter(feed_id, -1);
+        update_counter("all", -1);
+        $body.data("read-state", new_state);
+      }
     });
   });
 
@@ -103,6 +115,7 @@ $(document).ready(function() {
     update_counter(feed_id, change_value);
     update_counter("all", change_value);
     $(this).html(new_label).data("read-state", new_state);
+    $(this).parent().parent().data("read-state", new_state);
 
   });
 

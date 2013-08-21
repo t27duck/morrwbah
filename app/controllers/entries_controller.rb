@@ -2,7 +2,7 @@ class EntriesController < ApplicationController
   before_action :set_feed_and_entry
 
   def show
-    @entry.update_attributes!(:read => true)
+    @entry.update_attributes!(:read => true) if params[:mark_read]
     render :layout => nil
   end
 

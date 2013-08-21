@@ -21,7 +21,7 @@
               .panel-heading
                 %h3.panel-title
                   %a.panel-toggle{href: "#entry-#{entry.id}", data: {parent: "#entry-list"}}
-                    = entry.title
-              .panel-collapse.collapse{id: "entry-#{entry.id}", data: {entry_id: entry.id, feed_id: entry.feed_id}}
+                    = entry.title.html_safe
+              .panel-collapse.collapse{id: "entry-#{entry.id}", data: {entry_id: entry.id, feed_id: entry.feed_id, read_state: entry.read.to_s}}
                 .panel-body
                   Loading...
