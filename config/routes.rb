@@ -6,7 +6,7 @@ Morrwbah::Application.routes.draw do
   get 'logout', to: "sessions#destroy", as: "logout"
   resources :sessions, only: [:new, :create, :destroy]
 
-  resources :users, only: [:new, :create, :update, :destroy]
+  resources :users
 
   resources :feeds do
     collection do

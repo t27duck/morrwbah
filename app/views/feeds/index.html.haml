@@ -2,10 +2,6 @@
   .row-fluid
     .span12
       #entry-nav.pull-right
-        - if @lister.filter == "unread"
-          = link_to "View Read", feed_path(@lister.identifier, filter: "read"), :class => "btn btn-primary"
-        - elsif @lister.filter == "read"
-          = link_to "View Unread", feed_path(@lister.identifier), :class => "btn btn-primary"
         %button#prev-entry.btn.btn-primary{type: "button"} &laquo; Prev
         %button#next-entry.btn.btn-primary{type: "button"} Next &raquo;
       #entry-list-title

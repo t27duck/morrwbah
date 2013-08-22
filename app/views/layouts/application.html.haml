@@ -14,7 +14,7 @@
           %span.icon-bar
           %span.icon-bar
           %span.icon-bar
-        = link_to "My Own RSS Reader", root_path, class: "navbar-brand"
+        = link_to "RSS Reader", root_path, class: "navbar-brand"
       .navbar-collapse.collapse
         %ul.nav.navbar-nav
           -if current_user
@@ -29,6 +29,12 @@
                     %li= link_to unread_count(feed.title, feed.unread_count), feed_path(feed.id), class: "feed-link-#{feed.id}"
             %li= link_to "Manage", manage_index_path
             %li= link_to "Refresh", fetch_feeds_path
+            - if @lister
+              %li
+                - if @lister.filter == "unread"
+                  = link_to "View Read", feed_path(@lister.identifier, filter: "read")
+                - elsif @lister.filter == "read"
+                  = link_to "View Unread", feed_path(@lister.identifier)
         %ul.nav.navbar-nav.navbar-right
           -if current_user
             %li= link_to "Logout", logout_path, data: { confirm: "Are you sure out want to logout?" }
