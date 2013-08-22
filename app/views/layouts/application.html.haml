@@ -2,11 +2,11 @@
 %html
   %head
     %title My Own RSS Reader
-    %meta{"http-equiv"=>"X-UA-Compatible", :content=>"IE=edge"}
-    %meta{:name=>"viewport", :content=>"width=device-width, initial-scale=1.0"}
+    %meta{"http-equiv" => "X-UA-Compatible", content: "IE=edge"}
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1.0"}
     = stylesheet_link_tag "application", media: "screen"
     = csrf_meta_tags
-%body{:id => controller.controller_name}
+%body{id: controller.controller_name, data: {mobile_browser: mobile_browser?.to_s}}
   .navbar.navbar-inverse.navbar-static-top
     .container
       .navbar-header

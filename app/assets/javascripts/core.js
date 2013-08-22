@@ -68,7 +68,9 @@ $(document).ready(function() {
       data: data
     }).done(function(data) {
       $body_inner.html(data);
-      $body_inner.fitVids();
+      if ($("body").data("mobile-browser") === true) {
+        $body_inner.fitVids();
+      }
       $body.addClass("in");
       $this[0].scrollIntoView(true);
       if (new_state == true) {

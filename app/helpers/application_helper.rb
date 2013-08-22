@@ -19,4 +19,12 @@ module ApplicationHelper
     html.html_safe
   end
 
+  def mobile_browser?
+    # Season this regexp to taste. I prefer to treat iPad as non-mobile.
+   if (request.user_agent =~ /Mobile|webOS/) && (request.user_agent !~ /iPad/)
+     true
+   else
+     false
+   end
+  end
 end
