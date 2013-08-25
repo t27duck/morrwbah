@@ -95,3 +95,10 @@ table.table {
     height: 100%;
   }
 }
+
+.panel-heading {
+  background-color: #d6d6d6;
+  &.selected {
+    background-color: #A8CEE6;
+  }
+}

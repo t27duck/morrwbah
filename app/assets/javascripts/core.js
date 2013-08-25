@@ -46,6 +46,7 @@ $(document).ready(function() {
     $(".panel-collapse.in").each(function() {
       $(this).removeClass("in");
       $(this).children(".panel-body").html("Loading...");
+      $(this).parent().children(".panel-heading").removeClass("selected");
     });
     
     var $this = $(this);
@@ -72,6 +73,7 @@ $(document).ready(function() {
         $body_inner.fitVids();
       }
       $body.addClass("in");
+      $this.addClass("selected");
       $this[0].scrollIntoView(true);
       if (new_state == true) {
         update_counter(feed_id, -1);
