@@ -3,7 +3,7 @@
   %head
     %title My Own RSS Reader
     %meta{"http-equiv" => "X-UA-Compatible", content: "IE=edge"}
-    %meta{name: "viewport", content: "width=device-width, initial-scale=1.0"}
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1.0, user-scalable=no"}
     = stylesheet_link_tag "application", media: "screen"
     = csrf_meta_tags
 %body{id: controller.controller_name, data: {mobile_browser: mobile_browser?.to_s}}
